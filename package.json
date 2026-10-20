@@ -1,0 +1,21 @@
+{
+  "name": "veloop-giveaway-system",
+  "version": "1.0.0",
+  "description": "VELOOP Giveaway and Rewards System - Monorepo",
+  "private": true,
+  "scripts": {
+    "dev:client": "npm --prefix client run dev",
+    "dev:server": "npm --prefix server run dev",
+    "build:client": "npm --prefix client run build",
+    "start:server": "npm --prefix server run start",
+    "test:server": "npm --prefix server run test"
+  },
+  "keywords": [
+    "veloop",
+    "giveaway",
+    "rewards",
+    "gamification"
+  ],
+  "author": "Jivan",
+  "license": "UNLICENSED"
+}
