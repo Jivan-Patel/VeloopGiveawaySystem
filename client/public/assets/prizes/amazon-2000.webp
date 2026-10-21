@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" fill="none">
+    <defs>
+      <linearGradient id="amzGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#232F3E" />
+        <stop offset="100%" stop-color="#131921" />
+      </linearGradient>
+    </defs>
+    <rect x="5" y="5" width="310" height="190" rx="16" fill="url(#amzGrad)" stroke="#F97316" stroke-width="2.5" />
+    <text x="35" y="60" fill="#FFFFFF" font-family="Inter, sans-serif" font-weight="800" font-size="24">amazon.in</text>
+    <text x="35" y="85" fill="#F97316" font-family="Inter, sans-serif" font-weight="600" font-size="14">GIFT CARD</text>
+    <text x="35" y="145" fill="#FFFFFF" font-family="Inter, sans-serif" font-weight="900" font-size="36">₹2,000</text>
+    <path d="M35 160 Q100 180, 160 160" stroke="#F97316" stroke-width="4" stroke-linecap="round" fill="none" />
+  </svg>

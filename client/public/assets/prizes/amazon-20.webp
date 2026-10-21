@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" fill="none">
+    <defs>
+      <linearGradient id="amzGrad20" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#2D2419" />
+        <stop offset="100%" stop-color="#18130B" />
+      </linearGradient>
+    </defs>
+    <rect x="5" y="5" width="310" height="190" rx="16" fill="url(#amzGrad20)" stroke="#D97706" stroke-width="2" />
+    <text x="35" y="60" fill="#FFFFFF" font-family="Inter, sans-serif" font-weight="800" font-size="22">amazon.in</text>
+    <text x="35" y="85" fill="#F59E0B" font-family="Inter, sans-serif" font-weight="600" font-size="13">MINI TOKEN DROP</text>
+    <text x="35" y="145" fill="#FFFFFF" font-family="Inter, sans-serif" font-weight="900" font-size="36">₹20</text>
+    <path d="M35 160 Q100 180, 160 160" stroke="#F59E0B" stroke-width="3" stroke-linecap="round" fill="none" />
+  </svg>

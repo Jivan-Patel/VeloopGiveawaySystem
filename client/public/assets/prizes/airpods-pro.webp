@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 400" fill="none">
+    <defs>
+      <linearGradient id="caseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#F8FAF9" />
+        <stop offset="60%" stop-color="#E2E8F0" />
+        <stop offset="100%" stop-color="#CBD5E1" />
+      </linearGradient>
+    </defs>
+    <!-- Charging Case in Pearl White -->
+    <rect x="40" y="120" width="200" height="160" rx="55" fill="url(#caseGrad)" stroke="#10B981" stroke-width="2.5" />
+    <line x1="40" y1="180" x2="240" y2="180" stroke="#94A3B8" stroke-width="1.5" />
+    <circle cx="140" cy="205" r="4" fill="#10B981" />
+    <!-- Earbuds Preview -->
+    <path d="M90 60 C90 40, 120 40, 120 60 L120 120 L105 120 L105 75 Z" fill="#F8FAF9" stroke="#94A3B8" />
+    <path d="M190 60 C190 40, 160 40, 160 60 L160 120 L175 120 L175 75 Z" fill="#F8FAF9" stroke="#94A3B8" />
+    <text x="140" y="325" text-anchor="middle" fill="#10B981" font-family="Inter, sans-serif" font-weight="700" font-size="18">AirPods Pro 2</text>
+    <text x="140" y="350" text-anchor="middle" fill="#94A3B8" font-family="Inter, sans-serif" font-size="13">Active Noise Cancellation</text>
+  </svg>

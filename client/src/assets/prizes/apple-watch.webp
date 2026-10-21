@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 400" fill="none">
+    <defs>
+      <linearGradient id="watchStrap" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#059669" />
+        <stop offset="50%" stop-color="#047857" />
+        <stop offset="100%" stop-color="#064E3B" />
+      </linearGradient>
+      <linearGradient id="watchCase" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#2D3748" />
+        <stop offset="100%" stop-color="#1A202C" />
+      </linearGradient>
+    </defs>
+    <!-- Straps in Racing Emerald -->
+    <rect x="90" y="15" width="100" height="100" rx="12" fill="url(#watchStrap)" />
+    <rect x="90" y="285" width="100" height="100" rx="12" fill="url(#watchStrap)" />
+    <!-- Case -->
+    <rect x="55" y="80" width="170" height="230" rx="46" fill="url(#watchCase)" stroke="#10B981" stroke-width="3" />
+    <!-- Screen -->
+    <rect x="65" y="90" width="150" height="210" rx="38" fill="#0C100E" />
+    <!-- Crown -->
+    <rect x="225" y="125" width="10" height="40" rx="4" fill="#F59E0B" />
+    <rect x="225" y="180" width="7" height="35" rx="3" fill="#64748B" />
+    <!-- UI Elements -->
+    <text x="140" y="165" text-anchor="middle" fill="#10B981" font-family="Inter, sans-serif" font-weight="800" font-size="44">09:41</text>
+    <text x="140" y="200" text-anchor="middle" fill="#A7F3D0" font-family="Inter, sans-serif" font-weight="600" font-size="14">SERIES 9 · 45mm</text>
+    <circle cx="140" cy="245" r="22" stroke="#10B981" stroke-width="4" fill="none" />
+    <circle cx="140" cy="245" r="15" stroke="#F59E0B" stroke-width="4" fill="none" />
+  </svg>

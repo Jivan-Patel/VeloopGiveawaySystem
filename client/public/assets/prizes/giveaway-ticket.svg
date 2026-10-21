@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" fill="none">
+    <defs>
+      <linearGradient id="ticketBg" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#1A241E" />
+        <stop offset="50%" stop-color="#121814" />
+        <stop offset="100%" stop-color="#0B0E0D" />
+      </linearGradient>
+      <linearGradient id="goldGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#FDE68A" />
+        <stop offset="50%" stop-color="#F59E0B" />
+        <stop offset="100%" stop-color="#B45309" />
+      </linearGradient>
+      <radialGradient id="hologram" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#10B981" stop-opacity="0.35" />
+        <stop offset="100%" stop-color="#059669" stop-opacity="0" />
+      </radialGradient>
+    </defs>
+    <rect x="10" y="10" width="380" height="220" rx="20" fill="url(#ticketBg)" stroke="url(#goldGlow)" stroke-width="2.5" />
+    <circle cx="10" cy="120" r="16" fill="#0B0E0D" />
+    <circle cx="390" cy="120" r="16" fill="#0B0E0D" />
+    <line x1="280" y1="20" x2="280" y2="220" stroke="#F59E0B" stroke-dasharray="8 8" stroke-opacity="0.35" stroke-width="2" />
+    <circle cx="140" cy="120" r="80" fill="url(#hologram)" />
+    <text x="50" y="80" fill="#F8FAF9" font-family="Inter, sans-serif" font-weight="800" font-size="24" letter-spacing="1">VELOP REWARDS</text>
+    <text x="50" y="115" fill="#F59E0B" font-family="Inter, sans-serif" font-weight="700" font-size="16">★ OFFICIAL GIVEAWAY PASS ★</text>
+    <text x="50" y="165" fill="#94A3B8" font-family="Inter, sans-serif" font-size="13">100% Fair On-Chain Selection · ID Verified</text>
+    <text x="305" y="80" fill="#10B981" font-family="monospace" font-size="12">NO. 8849</text>
+    <text x="310" y="140" fill="#F59E0B" font-family="Inter, sans-serif" font-weight="900" font-size="28">VIP</text>
+  </svg>
