@@ -1,0 +1,121 @@
+/* ==========================================================
+   VELOP Giveaway System — Design Tokens & Theme Variables
+   Color Palette: Luxury Obsidian Carbon, Emerald & Champagne Gold
+   NO AI-PRONE PURPLE, VIOLET, OR ELECTRIC BLUE.
+   ========================================================== */
+
+:root {
+  /* Brand Core Neutral Surfaces (Deep Obsidian Charcoal) */
+  --color-bg-base: #0B0E0D;
+  --color-bg-surface: #121714;
+  --color-bg-surface-elevated: #1A221D;
+  --color-bg-surface-glass: rgba(18, 23, 20, 0.82);
+  --color-bg-surface-hover: #222C26;
+
+  /* Primary Brand: Refined Emerald & Jade */
+  --color-primary: #059669;
+  --color-primary-light: #10B981;
+  --color-primary-dark: #047857;
+  --color-primary-subtle: rgba(16, 185, 129, 0.12);
+  --color-primary-border: rgba(16, 185, 129, 0.28);
+  --color-primary-glow: rgba(16, 185, 129, 0.25);
+
+  /* Gold & Warm Champagne Accent */
+  --color-gold: #F59E0B;
+  --color-gold-hover: #D97706;
+  --color-gold-subtle: rgba(245, 158, 11, 0.12);
+  --color-gold-border: rgba(245, 158, 11, 0.3);
+  --color-gold-glow: rgba(245, 158, 11, 0.25);
+
+  /* Warm Copper / Bronze / Amber Accent */
+  --color-amber: #F97316;
+  --color-amber-subtle: rgba(249, 115, 22, 0.12);
+  --color-amber-border: rgba(249, 115, 22, 0.3);
+
+  /* Status Colors */
+  --color-success: #10B981;
+  --color-success-subtle: rgba(16, 185, 129, 0.12);
+  --color-warning: #F59E0B;
+  --color-warning-subtle: rgba(245, 158, 11, 0.12);
+  --color-danger: #EF4444;
+  --color-danger-subtle: rgba(239, 68, 68, 0.12);
+  --color-info: #0D9488;
+  --color-info-subtle: rgba(13, 148, 136, 0.12);
+
+  /* Per-Prize Themed Accent Colors (Sophisticated & Grounded) */
+  --prize-accent-iphone: #E2E8F0;    /* Natural Titanium */
+  --prize-accent-watch: #10B981;     /* Racing Emerald */
+  --prize-accent-airpods: #84CC16;   /* Lime/Sage */
+  --prize-accent-amazon: #F97316;    /* Warm Amber Orange */
+
+  /* Typography Colors */
+  --color-text-primary: #F8FAF9;
+  --color-text-secondary: #94A3B8;
+  --color-text-muted: #64748B;
+  --color-text-subtle: #475569;
+
+  /* Borders & Dividers */
+  --border-color-subtle: rgba(16, 185, 129, 0.16);
+  --border-color-card: rgba(255, 255, 255, 0.08);
+  --border-color-hover: rgba(16, 185, 129, 0.45);
+
+  /* Shadows & Glows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.45);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.55);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.65);
+  --shadow-card: 0 8px 24px -4px rgba(0, 0, 0, 0.55), 0 0 0 1px var(--border-color-card);
+  --shadow-card-hover: 0 16px 36px -4px rgba(0, 0, 0, 0.65), 0 0 24px rgba(16, 185, 129, 0.2);
+  --glow-primary: 0 0 24px rgba(16, 185, 129, 0.25);
+  --glow-gold: 0 0 24px rgba(245, 158, 11, 0.25);
+
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: 400ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Typography Families */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Plus Jakarta Sans', var(--font-sans);
+
+  /* ----------------------------------------------------
+     Bootstrap CSS Variable Overrides
+     ---------------------------------------------------- */
+  --bs-body-bg: var(--color-bg-base);
+  --bs-body-color: var(--color-text-primary);
+  --bs-body-color-rgb: 248, 250, 249;
+  --bs-body-bg-rgb: 11, 14, 13;
+  
+  --bs-primary: var(--color-primary);
+  --bs-primary-rgb: 5, 150, 105;
+  
+  --bs-card-bg: var(--color-bg-surface);
+  --bs-card-color: var(--color-text-primary);
+  --bs-card-border-color: var(--border-color-subtle);
+  --bs-card-border-radius: var(--radius-lg);
+
+  --bs-modal-bg: var(--color-bg-surface-elevated);
+  --bs-modal-color: var(--color-text-primary);
+  --bs-modal-border-color: var(--color-primary-border);
+  --bs-modal-border-radius: var(--radius-xl);
+  --bs-modal-header-border-color: var(--border-color-subtle);
+  --bs-modal-footer-border-color: var(--border-color-subtle);
+
+  --bs-border-color: var(--border-color-subtle);
+}
+
+/* Reduced Motion Preference */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
