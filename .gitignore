@@ -16,6 +16,8 @@ coverage/
 .env.production.local
 *.pem
 
+plan/
+
 # Logs
 npm-debug.log*
 yarn-debug.log*
