@@ -15,7 +15,6 @@ export function AuthProvider({ children }) {
       if (res.data?.user) {
         setUser(res.data.user);
       } else {
-        // Fallback for initial dev
         setUser(MOCK_USER);
       }
     } catch {
@@ -30,7 +29,6 @@ export function AuthProvider({ children }) {
   }, [loadUser]);
 
   const login = async (email, password) => {
-    // In live mode, will call API; in mock, activates MOCK_USER
     localStorage.setItem('veloop_auth_token', 'mock-jwt-token-veloop');
     setUser(MOCK_USER);
     return { success: true };
@@ -41,13 +39,19 @@ export function AuthProvider({ children }) {
     setUser(null);
   };
 
+  // Helper for Dev State Switcher to flip balances on the fly
+  const setCustomWallet = (balances) => {
+    setUser((prev) => (prev ? { ...prev, wallet: { ...prev.wallet, ...balances } } : null));
+  };
+
   const value = {
     user,
     isAuthenticated: !!user,
     loading,
     login,
     logout,
-    refreshUser: loadUser
+    refreshUser: loadUser,
+    setCustomWallet
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
