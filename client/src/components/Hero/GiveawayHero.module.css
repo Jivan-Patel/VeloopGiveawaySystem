@@ -1,0 +1,170 @@
+.heroSection {
+  position: relative;
+  padding: 3.5rem 0 4rem;
+  overflow: hidden;
+}
+
+.heroGlow {
+  position: absolute;
+  top: 10%;
+  right: 15%;
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, rgba(245, 158, 11, 0.05) 50%, transparent 70%);
+  filter: blur(50px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+}
+
+.badgePill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.9rem;
+  background: var(--color-bg-surface-elevated);
+  border: 1px solid var(--border-color-subtle);
+  border-radius: var(--radius-full);
+  margin-bottom: 1.5rem;
+}
+
+.badgePillText {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+
+.heroTitle {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.25rem, 5.5vw, 3.8rem);
+  line-height: 1.1;
+  margin-bottom: 1.25rem;
+  letter-spacing: -0.03em;
+}
+
+.heroSubtitle {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  max-width: 580px;
+  margin-bottom: 2rem;
+}
+
+.ctaGroup {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2.5rem;
+}
+
+.trustPoints {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color-card);
+}
+
+.trustItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.trustIcon {
+  color: var(--color-primary-light);
+}
+
+/* Hero Visual Art Showcase */
+.visualContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 380px;
+}
+
+.ticketArt {
+  position: absolute;
+  width: 270px;
+  top: 10px;
+  right: 40px;
+  z-index: 1;
+  transform: rotate(8deg);
+  filter: drop-shadow(0 16px 32px rgba(0, 0, 0, 0.7));
+  animation: floatSubtle 6s ease-in-out infinite;
+}
+
+.giftBoxArt {
+  position: relative;
+  width: 250px;
+  z-index: 2;
+  transform: rotate(-6deg);
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.8));
+  animation: floatSubtle 6s ease-in-out infinite 1.5s;
+}
+
+.ambientCard {
+  position: absolute;
+  bottom: 0px;
+  left: 20px;
+  z-index: 3;
+  background: var(--color-bg-surface-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-color-card);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.ambientDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-primary-light);
+  box-shadow: 0 0 10px var(--color-primary-light);
+}
+
+@keyframes floatSubtle {
+  0%, 100% {
+    transform: translateY(0px) rotate(8deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(6deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticketArt, .giftBoxArt {
+    animation: none;
+  }
+}
+
+@media (max-width: 991px) {
+  .visualContainer {
+    margin-top: 2rem;
+    min-height: 300px;
+  }
+  .ticketArt {
+    width: 200px;
+    right: 20px;
+  }
+  .giftBoxArt {
+    width: 190px;
+  }
+}
