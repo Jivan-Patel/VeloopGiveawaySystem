@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './hooks/useAuth';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import DevStateSwitcher from './components/DevStateSwitcher/DevStateSwitcher';
 import Giveaway from './pages/Giveaway';
 import GiveawayDetail from './pages/GiveawayDetail';
 import Login from './pages/Login';
@@ -29,6 +30,9 @@ export function App() {
             </Routes>
           </main>
           <Footer />
+
+          {/* Dev State Switcher for QA and Screenshots (?demo=1 or DEV) */}
+          <DevStateSwitcher />
         </div>
       </BrowserRouter>
     </AuthProvider>

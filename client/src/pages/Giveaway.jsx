@@ -1,20 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Gift, Sparkles, Clock, Users, ArrowRight, Zap, ShieldCheck } from 'lucide-react';
+import { Sparkles, Users, ArrowRight, Zap, ShieldCheck } from 'lucide-react';
 import { useGiveaways } from '../hooks/useGiveaways';
 import { formatCurrencyAmount } from '../config/currencies';
 import { getStatusBadgeConfig } from '../config/giveawayStatus';
+import GiveawayHero from '../components/Hero/GiveawayHero';
+import GiveawayBanner from '../components/Banner/GiveawayBanner';
+import ThemedLoader from '../components/Loader/ThemedLoader';
 
 export function Giveaway() {
   const { giveaways, stats, loading, error, serverTime } = useGiveaways();
 
   if (loading) {
-    return (
-      <div className="container py-5 text-center">
-        <div className="spinner-border text-primary mb-3" role="status" />
-        <p className="text-secondary-custom">Connecting to VELOOP Rewards Authority…</p>
-      </div>
-    );
+    return <ThemedLoader fullScreen={false} />;
   }
 
   if (error) {
@@ -28,23 +26,23 @@ export function Giveaway() {
   }
 
   return (
-    <div className="container py-5">
-      {/* Hero Section Banner */}
-      <section className="text-center py-4 mb-5">
-        <div className="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill mb-3 border border-subtle bg-surface">
-          <Sparkles size={16} className="text-gold" />
-          <span className="small text-gold fw-bold">Official Summer Rewards 2026</span>
-        </div>
-        <h1 className="display-4 fw-bold gradient-text-platinum mb-3">
-          Win Flagship Tech & Gift Cards
-        </h1>
-        <p className="lead text-secondary-custom mx-auto mb-4" style={{ maxWidth: '640px' }}>
-          Participate using your earned Veloop Entries (VE). Backed by cryptographically fair distribution, authoritative state management, and direct doorstep shipping.
-        </p>
+    <div className="container py-4">
+      {/* 1. Page Hero */}
+      <GiveawayHero />
 
-        {/* Quick Stats Grid */}
-        {stats && (
-          <div className="row g-3 justify-content-center mb-4">
+      {/* 2. Campaign Banner */}
+      <GiveawayBanner
+        badge="Official Campaign"
+        heading="Summer Rewards Rush 2026"
+        subtext="All entry deductions executed atomically on authoritative ledger. Cryptographic random distribution."
+        ctaText="View Prize Pools"
+        ctaLink="#featured-pools"
+      />
+
+      {/* 3. Quick Stats Grid */}
+      {stats && (
+        <section className="mb-5">
+          <div className="row g-3 justify-content-center">
             <div className="col-6 col-md-3">
               <div className="glass-panel p-3 text-center">
                 <div className="fs-3 fw-bold text-gold">{Number(stats.totalPrizesAwarded).toLocaleString()}</div>
@@ -70,18 +68,18 @@ export function Giveaway() {
               </div>
             </div>
           </div>
-        )}
-      </section>
+        </section>
+      )}
 
-      {/* Featured Giveaways Grid */}
-      <section className="mb-5">
+      {/* 4. Featured Giveaways Section */}
+      <section id="featured-pools" className="mb-5">
         <div className="d-flex justify-content-between align-items-center mb-4">
           <div>
-            <h2 className="h3 fw-bold mb-1">Featured Giveaways</h2>
-            <p className="text-muted-custom small mb-0">Select a prize pool to review participation details and enter the draw</p>
+            <h2 className="h3 fw-bold mb-1">Featured Prize Pools</h2>
+            <p className="text-muted-custom small mb-0">Select a reward pool to inspect rules and register your verified entry</p>
           </div>
           <span className="badge bg-surface border border-subtle text-secondary-custom px-3 py-2">
-            Server Time: {serverTime ? new Date(serverTime).toLocaleTimeString() : 'Synced'}
+            Server Clock: {serverTime ? new Date(serverTime).toLocaleTimeString() : 'Synced'}
           </span>
         </div>
 
@@ -91,7 +89,7 @@ export function Giveaway() {
             return (
               <div key={gw.giveawayId} className="col-12 col-md-6 col-lg-4">
                 <div className="card h-100 bg-surface border-subtle shadow-sm overflow-hidden d-flex flex-column">
-                  {/* Prize Image & Accent */}
+                  {/* Prize Image Showcase */}
                   <div className="position-relative overflow-hidden" style={{ height: '210px', background: 'var(--color-bg-base)' }}>
                     <span
                       className="position-absolute top-0 end-0 m-3 badge rounded-pill px-3 py-2 shadow-sm"
@@ -128,7 +126,7 @@ export function Giveaway() {
                       {gw.description}
                     </p>
 
-                    {/* Metadata strip */}
+                    {/* Metadata Strip */}
                     <div className="d-flex justify-content-between align-items-center py-2 border-top border-bottom border-subtle mb-3">
                       <div className="small text-muted-custom d-flex align-items-center gap-1">
                         <Users size={14} />
