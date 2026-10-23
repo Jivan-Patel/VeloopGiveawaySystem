@@ -1,24 +1,33 @@
-import React from 'react';
-import { Calendar, ArrowRight, AlertCircle } from 'lucide-react';
+import React, { useState } from 'react';
+import { ArrowRight, AlertCircle } from 'lucide-react';
 import { useGiveaways } from '../hooks/useGiveaways';
-import { formatCurrencyAmount } from '../config/currencies';
-import GiveawayHero from '../components/Hero/GiveawayHero';
-import GiveawayBanner from '../components/Banner/GiveawayBanner';
+import SectionHeader from '../components/SectionHeader/SectionHeader';
 import GiveawayStats from '../components/Stats/GiveawayStats';
-import FeaturedGiveaways from '../components/Featured/FeaturedGiveaways';
+import PrizeCard from '../components/Cards/PrizeCard';
+import ParticipateTimeline from '../components/ParticipateTimeline/ParticipateTimeline';
+import TrustBadges from '../components/Trust/TrustBadges';
 import ThemedLoader from '../components/Loader/ThemedLoader';
-import Countdown from '../components/Countdown/Countdown';
+import styles from './Giveaway.module.css';
 
+/**
+ * Giveaway Page Component - Strictly matching Ref_02.jpeg (Document last page)
+ * Transforms the giveaway view into a unified, self-contained "Giveaway Section":
+ * 1. Section Header (Flanked by 3D gift box podiums with confetti, gradient title)
+ * 2. Stats Strip (Total Giveaways, Total Participants, Prizes Won, Ends In)
+ * 3. Main Area: 4 Featured Prize Cards + How to Participate Timeline sidebar
+ * 4. Trust & Security Strip (4 verified platform guarantees)
+ */
 export function Giveaway() {
   const {
     giveaways,
-    upcomingGiveaways,
     stats,
     loading,
     error,
     serverTime,
     refetch
   } = useGiveaways();
+
+  const [showAll, setShowAll] = useState(false);
 
   if (loading) {
     return <ThemedLoader fullScreen={false} />;
@@ -29,7 +38,7 @@ export function Giveaway() {
       <div className="container py-5 text-center">
         <div className="alert alert-danger d-inline-flex align-items-center gap-2">
           <AlertCircle size={20} />
-          <span>Failed to load reward pools: {error.message || 'Server connection error'}</span>
+          <span>Failed to load giveaway pools: {error.message || 'Server connection error'}</span>
         </div>
         <div className="mt-3">
           <button onClick={refetch} className="btn btn-outline-light btn-sm">
@@ -40,74 +49,61 @@ export function Giveaway() {
     );
   }
 
-  // Earliest upcoming giveaway for the "Next Giveaway Starts In" block
-  const nextUpcoming = upcomingGiveaways.length > 0 ? upcomingGiveaways[0] : null;
+  // Display top 4 featured cards matching Ref_02.jpeg unless user toggles "View All"
+  const displayedCards = showAll ? giveaways : giveaways.slice(0, 4);
 
   return (
-    <div className="container py-4">
-      {/* 1. Page Hero with Restrained Motion */}
-      <GiveawayHero />
+    <div className={styles.pageContainer}>
+      {/* 1. Header with Flanking 3D Podium Gift Boxes */}
+      <SectionHeader />
 
-      {/* 2. Platform Campaign Credentials Banner */}
-      <GiveawayBanner
-        badge="Official Campaign"
-        heading="Summer Rewards Rush 2026"
-        subtext="All entry deductions executed atomically on authoritative backend ledger. Cryptographic random distribution."
-        ctaText="View Prize Pools"
-        ctaLink="#featured-pools"
-      />
+      {/* 2. Platform Summary Metrics Strip */}
+      <GiveawayStats stats={stats} serverTime={serverTime} />
 
-      {/* 3. Next Giveaway Starts In Block (PRD line 298 requirement) */}
-      {nextUpcoming && (
-        <div className="card bg-surface border border-subtle p-3 p-md-4 rounded-4 mb-5 shadow-sm">
-          <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
-            <div className="d-flex align-items-center gap-3">
-              <div className="p-3 bg-surface-elevated rounded-3 text-gold">
-                <Calendar size={24} />
-              </div>
+      {/* 3. Main Row: Left (4 Featured Prize Cards) + Right (How to Participate Sidebar) */}
+      <div className="row g-4 mb-2">
+        {/* Left Column: Featured Giveaways */}
+        <div className="col-12 col-xl-9">
+          <div className={styles.featuredSection}>
+            <div className={styles.sectionHeadingRow}>
               <div>
-                <div className="d-flex align-items-center gap-2 mb-1">
-                  <span className="badge rounded-pill bg-warning text-dark fw-bold">Next Drop</span>
-                  <span className="small text-muted-custom">Coming Soon</span>
-                </div>
-                <h3 className="h6 fw-bold text-white mb-0">{nextUpcoming.title}</h3>
-                <div className="small text-secondary-custom">
-                  Entry: {formatCurrencyAmount(nextUpcoming.entry.amount, nextUpcoming.entry.currency)} · {nextUpcoming.winnerCount} Winners
-                </div>
+                <h2 className={styles.headingTitle}>
+                  <span className={styles.starIcon}>★</span>
+                  <span>Featured Giveaways</span>
+                </h2>
+                <p className={styles.headingSubtitle}>
+                  Participate in our handpicked giveaways and win exciting rewards.
+                </p>
               </div>
+
+              <button
+                type="button"
+                className={styles.viewAllButton}
+                onClick={() => setShowAll((prev) => !prev)}
+                aria-label={showAll ? 'Show top 4 featured giveaways' : 'View all giveaways'}
+              >
+                <span>{showAll ? 'Show Featured' : 'View All Giveaways'}</span>
+                <ArrowRight size={14} />
+              </button>
             </div>
 
-            <div className="d-flex align-items-center gap-3">
-              <div className="text-md-end">
-                <div className="small text-muted-custom mb-1">Opens In:</div>
-                <Countdown
-                  variant="compact"
-                  targetDate={nextUpcoming.startAt}
-                  serverTime={serverTime}
-                  onZero={refetch}
-                />
-              </div>
-              <a
-                href={`/giveaway/${nextUpcoming.slug}`}
-                className="btn btn-outline-light btn-sm d-flex align-items-center gap-1"
-              >
-                <span>Details</span>
-                <ArrowRight size={14} />
-              </a>
+            {/* Prize Cards Grid */}
+            <div className={styles.cardsGrid}>
+              {displayedCards.map((gw) => (
+                <PrizeCard key={gw.giveawayId} giveaway={gw} />
+              ))}
             </div>
           </div>
         </div>
-      )}
 
-      {/* 4. Platform Impact & Aggregate Stats (with demo disclosure) */}
-      <GiveawayStats stats={stats} />
+        {/* Right Column: How to Participate Sidebar */}
+        <div className="col-12 col-xl-3">
+          <ParticipateTimeline />
+        </div>
+      </div>
 
-      {/* 5. Featured Prize Pools with Mobile Scroll-Snap Carousel */}
-      <FeaturedGiveaways
-        giveaways={giveaways}
-        serverTime={serverTime}
-        onTimerZero={refetch}
-      />
+      {/* 4. Bottom Trust & Security Strip */}
+      <TrustBadges />
     </div>
   );
 }

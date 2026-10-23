@@ -1,114 +1,105 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Users, Zap, Clock, ArrowRight } from 'lucide-react';
-import { formatCurrencyAmount } from '../../config/currencies';
-import { getStatusBadgeConfig, GIVEAWAY_STATUS } from '../../config/giveawayStatus';
-import Countdown from '../Countdown/Countdown';
+import { Users, Clock, ArrowRight } from 'lucide-react';
 import styles from './PrizeCard.module.css';
 
 /**
- * PrizeCard Component (PRD Section 6 & WD4)
- * Displays position tag, high-res image with fallback, per-prize accent, real-time countdown,
- * active participant counter, formatted fee chip, and accessible navigation CTA.
+ * PrizeCard Component - Strictly matching Ref_02.jpeg (Document last page)
+ * Displays:
+ * - Colored Rank Badge (1st Prize / 2nd Prize / 3rd Prize / Lucky Draw)
+ * - Centered Device Product Image with Radial Ambient Glow
+ * - Title & Subtitle (e.g., "iPhone 15 Pro", "Latest iPhone 15 Pro 128GB")
+ * - Participants & Countdown Info Row
+ * - Vibrant Gradient "Join Now →" CTA Button
  */
-export function PrizeCard({ giveaway, serverTime, onTimerZero }) {
+export function PrizeCard({ giveaway }) {
   if (!giveaway) return null;
 
-  const badge = getStatusBadgeConfig(giveaway.status, giveaway.winnersStatus);
-  const isUpcoming = giveaway.status === GIVEAWAY_STATUS.UPCOMING;
-  const isEnded = giveaway.status === GIVEAWAY_STATUS.ENDED;
+  const {
+    slug,
+    title,
+    subtitle,
+    prize = {},
+    displayParticipants,
+    displayTimeLeft
+  } = giveaway;
+
+  // Visual configuration mapping from Ref_02.jpeg
+  const badgeText = prize.badge || 'Featured';
+  const badgeColor = prize.badgeColor || '#F59E0B';
+  const btnGradient = prize.btnGradient || 'linear-gradient(135deg, #7C3AED, #6366F1)';
+  const accentColor = prize.accentColor || '#8B5CF6';
+
+  // Fallback image handling
+  const imageSrc = prize.localImage || prize.image;
 
   return (
-    <article className={styles.card}>
-      {/* Dynamic accent color line */}
-      <div
-        className={styles.accentLine}
-        style={{ background: giveaway.prize?.accentColor || 'var(--color-primary-light)' }}
-      />
-
-      {/* Prize Image & Status Badges */}
-      <div className={styles.imageContainer}>
-        {giveaway.prize?.badge && (
-          <span className={styles.tierPill}>
-            {giveaway.prize.badge}
-          </span>
-        )}
-
+    <div
+      className={styles.card}
+      style={{
+        '--card-accent': accentColor,
+        '--btn-gradient': btnGradient
+      }}
+    >
+      {/* Top Badge */}
+      <div className={styles.topBar}>
         <span
-          className={styles.badgeOverlay}
-          style={{ backgroundColor: badge.bgColor, color: badge.color }}
+          className={styles.rankBadge}
+          style={{ backgroundColor: badgeColor }}
         >
-          {badge.label}
+          {badgeText}
         </span>
+      </div>
 
+      {/* Product Image with Ambient Glow */}
+      <div className={styles.imageArea}>
+        <div
+          className={styles.ambientGlow}
+          style={{ backgroundColor: accentColor }}
+          aria-hidden="true"
+        />
         <img
-          src={giveaway.prize?.image}
-          alt={giveaway.prize?.name || giveaway.title}
-          className={styles.prizeImage}
+          src={imageSrc}
+          alt={title}
+          className={styles.productImage}
           loading="lazy"
           onError={(e) => {
-            if (giveaway.prize?.localImage && e.currentTarget.src !== giveaway.prize.localImage) {
-              e.currentTarget.src = giveaway.prize.localImage;
+            if (prize.localImage && e.currentTarget.src !== prize.localImage) {
+              e.currentTarget.src = prize.localImage;
             }
           }}
         />
       </div>
 
-      {/* Card Content */}
-      <div className={styles.cardBody}>
+      {/* Card Details */}
+      <div className={styles.body}>
+        <h3 className={styles.title}>{title}</h3>
+        <p className={styles.subtitle}>{subtitle || giveaway.description}</p>
+
+        {/* Metadata Strip */}
         <div className={styles.metaRow}>
-          <span className="badge bg-surface-elevated text-emerald border border-subtle small">
-            {giveaway.entry?.currency || 'VE'} Pool
-          </span>
-          <span className={styles.winnerCountBadge}>
-            {giveaway.winnerCount} {giveaway.winnerCount === 1 ? 'Winner' : 'Winners'}
-          </span>
-        </div>
-
-        <h3 className={styles.prizeTitle}>{giveaway.title}</h3>
-        <p className={styles.prizeDescription}>{giveaway.description}</p>
-
-        {/* Real-time Countdown Box */}
-        <div className={styles.countdownSection}>
-          <div className={styles.countdownLabel}>
-            <Clock size={13} />
-            <span>{isUpcoming ? 'Starts In' : isEnded ? 'Status' : 'Ends In'}</span>
+          <div className={styles.metaItem}>
+            <Users size={13} className={styles.metaIcon} />
+            <span>{displayParticipants || `${Number(giveaway.participantsCount).toLocaleString()} Participants`}</span>
           </div>
-          {isEnded ? (
-            <span className="small text-muted-custom fw-bold">Draw Concluded</span>
-          ) : (
-            <Countdown
-              variant="compact"
-              targetDate={isUpcoming ? giveaway.startAt : giveaway.endAt}
-              serverTime={serverTime}
-              onZero={onTimerZero}
-            />
-          )}
-        </div>
-
-        {/* Footer: Participants and Fee Chip */}
-        <div className={styles.footerStrip}>
-          <div className={styles.participants}>
-            <Users size={14} />
-            <span>{Number(giveaway.participantsCount || 0).toLocaleString('en-IN')} Entered</span>
-          </div>
-
-          <div className={styles.feeChip}>
-            <Zap size={14} />
-            <span>{formatCurrencyAmount(giveaway.entry?.amount, giveaway.entry?.currency)}</span>
+          <div className={styles.metaItem}>
+            <Clock size={13} className={styles.metaIcon} />
+            <span>{displayTimeLeft || 'Active Now'}</span>
           </div>
         </div>
 
-        {/* Navigation CTA (links to detail page, never triggers direct join) */}
+        {/* Join Now Button */}
         <Link
-          to={`/giveaway/${giveaway.slug}`}
-          className={`btn btn-primary-gradient ${styles.ctaButton}`}
+          to={`/giveaway/${slug}`}
+          className={styles.joinButton}
+          style={{ background: btnGradient }}
+          aria-label={`Join ${title} giveaway`}
         >
-          <span>{isEnded ? 'View Results' : 'View Prize & Enter'}</span>
-          <ArrowRight size={16} />
+          <span>Join Now</span>
+          <ArrowRight size={15} />
         </Link>
       </div>
-    </article>
+    </div>
   );
 }
 

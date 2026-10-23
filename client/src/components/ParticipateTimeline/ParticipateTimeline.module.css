@@ -1,0 +1,142 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  background: #0B0E17;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  height: 100%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.header {
+  margin-bottom: 1.5rem;
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.35rem;
+}
+
+.rocketIcon {
+  color: #A855F7;
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.subtitle {
+  font-size: 0.82rem;
+  color: #94A3B8;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.stepItem {
+  display: flex;
+  gap: 1rem;
+  position: relative;
+}
+
+.indicatorCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.iconCircle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  z-index: 2;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.purpleStep {
+  background: #7C3AED;
+  color: #FFFFFF;
+}
+
+.blueStep {
+  background: #2563EB;
+  color: #FFFFFF;
+}
+
+.greenStep {
+  background: #10B981;
+  color: #FFFFFF;
+}
+
+.orangeStep {
+  background: #EA580C;
+  color: #FFFFFF;
+}
+
+.dashedLine {
+  width: 2px;
+  flex-grow: 1;
+  min-height: 28px;
+  border-left: 2px dashed rgba(255, 255, 255, 0.18);
+  margin: 4px 0;
+}
+
+.contentCol {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 1.25rem;
+}
+
+.stepTitle {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0.15rem 0 0.25rem;
+}
+
+.stepDesc {
+  font-size: 0.78rem;
+  color: #94A3B8;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.rulesButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  background: rgba(30, 27, 75, 0.3);
+  border: 1px solid rgba(139, 92, 246, 0.45);
+  color: #E9D5FF;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: auto;
+}
+
+.rulesButton:hover {
+  background: rgba(139, 92, 246, 0.2);
+  border-color: rgba(168, 85, 247, 0.7);
+  color: #FFFFFF;
+}
