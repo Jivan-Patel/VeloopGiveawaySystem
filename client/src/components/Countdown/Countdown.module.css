@@ -1,0 +1,116 @@
+.countdownContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-sans);
+}
+
+.countdownUnit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--color-bg-base);
+  border: 1px solid var(--border-color-card);
+  border-radius: var(--radius-sm);
+  padding: 0.35rem 0.5rem;
+  min-width: 44px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.unitNumber {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--color-gold);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.unitLabel {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin-top: 0.15rem;
+}
+
+.separator {
+  color: var(--border-color-subtle);
+  font-weight: 800;
+  font-size: 1rem;
+  margin-top: -0.5rem;
+}
+
+.verifyingState {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.85rem;
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid var(--color-gold-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-gold);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.pulseDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  animation: pulseGold 1.5s infinite;
+}
+
+.endedState {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  padding: 0.35rem 0.75rem;
+  background: var(--color-bg-surface-elevated);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color-card);
+}
+
+/* Compact Variant for Prize Cards */
+.compact .countdownUnit {
+  padding: 0.2rem 0.35rem;
+  min-width: 32px;
+}
+
+.compact .unitNumber {
+  font-size: 0.95rem;
+}
+
+.compact .unitLabel {
+  font-size: 0.55rem;
+}
+
+/* Screen Reader Only (visually hidden but announced by screen reader) */
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+@keyframes pulseGold {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.9);
+    opacity: 0.6;
+  }
+}
