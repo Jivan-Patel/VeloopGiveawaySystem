@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Sparkles, SlidersHorizontal, ChevronRight, ChevronLeft, ArrowRightLeft } from 'lucide-react';
+import { ArrowRightLeft } from 'lucide-react';
 import { GIVEAWAY_STATUS } from '../../config/giveawayStatus';
 import PrizeCard from '../Cards/PrizeCard';
 import styles from './FeaturedGiveaways.module.css';
