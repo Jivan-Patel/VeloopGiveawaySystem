@@ -1,32 +1,28 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Clock, Users, Zap, ShieldCheck, CheckCircle, AlertTriangle, Gift } from 'lucide-react';
+import { ArrowLeft, Clock, ShieldCheck, CheckCircle } from 'lucide-react';
 import giveawayApi from '../services/giveawayApi';
-import { useCountdown } from '../hooks/useCountdown';
+import { Countdown } from '../components/Countdown/Countdown';
 import { useAuth } from '../hooks/useAuth';
 import { formatCurrencyAmount } from '../config/currencies';
 import { getStatusBadgeConfig } from '../config/giveawayStatus';
 
 export function GiveawayDetail() {
   const { slug } = useParams();
-  const { user, isAuthenticated } = useAuth();
+  const { isAuthenticated } = useAuth();
 
   const [giveaway, setGiveaway] = useState(null);
-  const [serverTime, setServerTime] = useState(null);
   const [userStatus, setUserStatus] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isJoining, setIsJoining] = useState(false);
   const [joinSuccess, setJoinSuccess] = useState(false);
 
-  const loadData = useCallback(async () => {
+  async function loadData() {
     try {
-      setLoading(true);
-      setError(null);
       const res = await giveawayApi.getGiveawayBySlug(slug);
       if (res.data) {
         setGiveaway(res.data.giveaway);
-        setServerTime(res.data.serverTime);
 
         // Fetch user context if available
         if (res.data.giveaway?.giveawayId) {
@@ -40,17 +36,11 @@ export function GiveawayDetail() {
     } finally {
       setLoading(false);
     }
-  }, [slug]);
+  }
 
   useEffect(() => {
     loadData();
-  }, [loadData]);
-
-  // Countdown timer with server synchronization
-  const countdown = useCountdown(giveaway?.endAt, serverTime, () => {
-    console.log('[GiveawayDetail] Timer hit zero, re-verifying with server...');
-    loadData();
-  });
+  }, [slug]);
 
   const handleJoin = async () => {
     if (!giveaway) return;
@@ -151,12 +141,12 @@ export function GiveawayDetail() {
 
             {/* Countdown Display */}
             <div className="p-3 rounded-3 bg-surface-elevated border border-subtle text-center mb-4">
-              <div className="small text-muted-custom mb-1 d-flex justify-content-center align-items-center gap-1">
+              <div className="small text-muted-custom mb-2 d-flex justify-content-center align-items-center gap-1">
                 <Clock size={14} />
                 <span>Ends In</span>
               </div>
-              <div className="fs-4 fw-bold font-monospace text-gold">
-                {countdown.isZero ? countdown.displayZeroMessage : countdown.formatted}
+              <div className="d-flex justify-content-center">
+                <Countdown targetDate={giveaway?.endAt} onZero={loadData} />
               </div>
             </div>
 
