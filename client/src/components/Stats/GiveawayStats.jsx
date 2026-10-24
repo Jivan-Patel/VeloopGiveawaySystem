@@ -10,23 +10,23 @@ import styles from './GiveawayStats.module.css';
  * 3. Prizes Won (1.2K+ Rewards)
  * 4. Ends In (12d : 08h : 45m Remaining)
  */
-export function GiveawayStats({ stats, serverTime }) {
+export function GiveawayStats({ stats }) {
   // Live ticking countdown for the "Ends In" stat (12d : 08h : 45m)
-  const [timeLeft, setTimeLeft] = useState({ days: 12, hours: 8, minutes: 45, seconds: 12 });
+  const [now, setNow] = useState(() => Date.now());
+  const [targetTime] = useState(() => Date.now() + (12 * 86400 + 8 * 3600 + 45 * 60) * 1000);
 
   useEffect(() => {
-    // 12 days, 8 hours, 45 minutes target
-    const target = Date.now() + (12 * 86400 + 8 * 3600 + 45 * 60) * 1000;
-    const interval = setInterval(() => {
-      const diff = Math.max(0, target - Date.now());
-      const d = Math.floor(diff / 86400000);
-      const h = Math.floor((diff % 86400000) / 3600000);
-      const m = Math.floor((diff % 3600000) / 60000);
-      const s = Math.floor((diff % 60000) / 1000);
-      setTimeLeft({ days: d, hours: h, minutes: m, seconds: s });
+    const timer = setInterval(() => {
+      setNow(Date.now());
     }, 1000);
-    return () => clearInterval(interval);
+    return () => clearInterval(timer);
   }, []);
+
+  // Derive remaining time directly during render (zero cascading renders)
+  const diff = Math.max(0, targetTime - now);
+  const days = Math.floor(diff / 86400000);
+  const hours = String(Math.floor((diff % 86400000) / 3600000)).padStart(2, '0');
+  const minutes = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
 
   const totalGiveaways = stats?.totalGiveaways || 24;
   const participants = stats?.totalParticipantsLabel || '8.5K+ Users';
@@ -83,7 +83,7 @@ export function GiveawayStats({ stats, serverTime }) {
           <div className={styles.statLabel}>Ends In</div>
           <div className={styles.statValue}>
             <span className={styles.timerDigits}>
-              {timeLeft.days}d : {String(timeLeft.hours).padStart(2, '0')}h : {String(timeLeft.minutes).padStart(2, '0')}m
+              {days}d : {hours}h : {minutes}m
             </span>{' '}
             <span className={styles.orangeAccent}>Remaining</span>
           </div>

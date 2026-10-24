@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import { ArrowRightLeft } from 'lucide-react';
 import { GIVEAWAY_STATUS } from '../../config/giveawayStatus';
 import PrizeCard from '../Cards/PrizeCard';
@@ -11,25 +11,23 @@ import styles from './FeaturedGiveaways.module.css';
  * - Tablet: 2-column balanced grid
  * - Mobile (<768px): Touch-friendly scroll-snap horizontal carousel
  */
-export function FeaturedGiveaways({ giveaways = [], serverTime, onTimerZero }) {
+export function FeaturedGiveaways({ giveaways = [] }) {
   const [filter, setFilter] = useState('ALL');
 
-  const counts = useMemo(() => {
-    return {
-      ALL: giveaways.length,
-      ACTIVE: giveaways.filter((g) => g.status === GIVEAWAY_STATUS.ACTIVE).length,
-      UPCOMING: giveaways.filter((g) => g.status === GIVEAWAY_STATUS.UPCOMING).length,
-      ENDED: giveaways.filter((g) => g.status === GIVEAWAY_STATUS.ENDED || g.status === GIVEAWAY_STATUS.ARCHIVED).length
-    };
-  }, [giveaways]);
+  // Filter items directly in render body (zero useMemo hooks)
+  const filteredGiveaways = filter === 'ALL'
+    ? giveaways
+    : filter === 'ENDED'
+      ? giveaways.filter((g) => g.status === GIVEAWAY_STATUS.ENDED || g.status === GIVEAWAY_STATUS.ARCHIVED)
+      : giveaways.filter((g) => g.status === filter);
 
-  const filteredGiveaways = useMemo(() => {
-    if (filter === 'ALL') return giveaways;
-    if (filter === 'ENDED') {
-      return giveaways.filter((g) => g.status === GIVEAWAY_STATUS.ENDED || g.status === GIVEAWAY_STATUS.ARCHIVED);
-    }
-    return giveaways.filter((g) => g.status === filter);
-  }, [giveaways, filter]);
+  // Tab counts calculated directly
+  const counts = {
+    ALL: giveaways.length,
+    ACTIVE: giveaways.filter((g) => g.status === GIVEAWAY_STATUS.ACTIVE).length,
+    UPCOMING: giveaways.filter((g) => g.status === GIVEAWAY_STATUS.UPCOMING).length,
+    ENDED: giveaways.filter((g) => g.status === GIVEAWAY_STATUS.ENDED || g.status === GIVEAWAY_STATUS.ARCHIVED).length
+  };
 
   return (
     <section id="featured-pools" className={styles.container}>
@@ -85,11 +83,7 @@ export function FeaturedGiveaways({ giveaways = [], serverTime, onTimerZero }) {
           <div className={styles.grid}>
             {filteredGiveaways.map((gw) => (
               <div key={gw.giveawayId} className={styles.carouselItem}>
-                <PrizeCard
-                  giveaway={gw}
-                  serverTime={serverTime}
-                  onTimerZero={onTimerZero}
-                />
+                <PrizeCard giveaway={gw} />
               </div>
             ))}
           </div>

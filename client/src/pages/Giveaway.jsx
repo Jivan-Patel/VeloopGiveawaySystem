@@ -23,7 +23,6 @@ export function Giveaway() {
     stats,
     loading,
     error,
-    serverTime,
     refetch
   } = useGiveaways();
 
@@ -58,7 +57,7 @@ export function Giveaway() {
       <SectionHeader />
 
       {/* 2. Platform Summary Metrics Strip */}
-      <GiveawayStats stats={stats} serverTime={serverTime} />
+      <GiveawayStats stats={stats} />
 
       {/* 3. Main Row: Left (4 Featured Prize Cards) + Right (How to Participate Sidebar) */}
       <div className="row g-4 mb-2">
