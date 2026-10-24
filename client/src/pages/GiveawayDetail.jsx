@@ -18,29 +18,55 @@ export function GiveawayDetail() {
   const [isJoining, setIsJoining] = useState(false);
   const [joinSuccess, setJoinSuccess] = useState(false);
 
-  async function loadData() {
+  useEffect(() => {
+    let ignore = false;
+
+    async function loadGiveawayDetail() {
+      try {
+        const res = await giveawayApi.getGiveawayBySlug(slug);
+        if (!ignore && res.data) {
+          setGiveaway(res.data.giveaway);
+
+          if (res.data.giveaway?.giveawayId) {
+            const statusRes = await giveawayApi.getMyStatus(res.data.giveaway.giveawayId);
+            if (!ignore) {
+              setUserStatus(statusRes.data || null);
+            }
+          }
+        }
+      } catch (err) {
+        if (!ignore) {
+          console.error('[GiveawayDetail] Error loading data:', err);
+          setError(err);
+        }
+      } finally {
+        if (!ignore) {
+          setLoading(false);
+        }
+      }
+    }
+
+    loadGiveawayDetail();
+
+    return () => {
+      ignore = true;
+    };
+  }, [slug]);
+
+  async function reloadData() {
     try {
       const res = await giveawayApi.getGiveawayBySlug(slug);
       if (res.data) {
         setGiveaway(res.data.giveaway);
-
-        // Fetch user context if available
         if (res.data.giveaway?.giveawayId) {
           const statusRes = await giveawayApi.getMyStatus(res.data.giveaway.giveawayId);
           setUserStatus(statusRes.data || null);
         }
       }
     } catch (err) {
-      console.error('[GiveawayDetail] Error loading data:', err);
-      setError(err);
-    } finally {
-      setLoading(false);
+      console.error('[GiveawayDetail] Error reloading data:', err);
     }
   }
-
-  useEffect(() => {
-    loadData();
-  }, [slug]);
 
   const handleJoin = async () => {
     if (!giveaway) return;
@@ -146,7 +172,7 @@ export function GiveawayDetail() {
                 <span>Ends In</span>
               </div>
               <div className="d-flex justify-content-center">
-                <Countdown targetDate={giveaway?.endAt} onZero={loadData} />
+                <Countdown targetDate={giveaway?.endAt} onZero={reloadData} />
               </div>
             </div>
 

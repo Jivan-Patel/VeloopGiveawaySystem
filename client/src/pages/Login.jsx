@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { LogIn, Sparkles, ShieldCheck } from 'lucide-react';
+import { LogIn } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 
 export function Login() {

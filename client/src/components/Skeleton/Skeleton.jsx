@@ -33,8 +33,10 @@ export function SkeletonCountdown() {
   );
 }
 
-export default {
+const Skeleton = {
   Text: SkeletonText,
   Card: SkeletonCard,
   Countdown: SkeletonCountdown
 };
+
+export default Skeleton;

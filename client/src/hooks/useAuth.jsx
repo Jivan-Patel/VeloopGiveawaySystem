@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import giveawayApi from '../services/giveawayApi';
 import { MOCK_USER } from '../data/giveawayData';
 
@@ -8,27 +8,34 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const loadUser = useCallback(async () => {
-    try {
-      setLoading(true);
-      const res = await giveawayApi.getAuthUser();
-      if (res.data?.user) {
-        setUser(res.data.user);
-      } else {
-        setUser(MOCK_USER);
+  useEffect(() => {
+    let ignore = false;
+
+    async function loadInitialUser() {
+      try {
+        const res = await giveawayApi.getAuthUser();
+        if (!ignore) {
+          setUser(res.data?.user || MOCK_USER);
+        }
+      } catch {
+        if (!ignore) {
+          setUser(MOCK_USER);
+        }
+      } finally {
+        if (!ignore) {
+          setLoading(false);
+        }
       }
-    } catch {
-      setUser(MOCK_USER);
-    } finally {
-      setLoading(false);
     }
+
+    loadInitialUser();
+
+    return () => {
+      ignore = true;
+    };
   }, []);
 
-  useEffect(() => {
-    loadUser();
-  }, [loadUser]);
-
-  const login = async (email, password) => {
+  const login = async (_email, _password) => {
     localStorage.setItem('veloop_auth_token', 'mock-jwt-token-veloop');
     setUser(MOCK_USER);
     return { success: true };
@@ -44,13 +51,22 @@ export function AuthProvider({ children }) {
     setUser((prev) => (prev ? { ...prev, wallet: { ...prev.wallet, ...balances } } : null));
   };
 
+  const refreshUser = async () => {
+    try {
+      const res = await giveawayApi.getAuthUser();
+      setUser(res.data?.user || MOCK_USER);
+    } catch {
+      setUser(MOCK_USER);
+    }
+  };
+
   const value = {
     user,
     isAuthenticated: !!user,
     loading,
     login,
     logout,
-    refreshUser: loadUser,
+    refreshUser,
     setCustomWallet
   };
 

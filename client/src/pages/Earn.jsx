@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Zap, Award, Coins, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { Zap, Award, Coins, ArrowRight } from 'lucide-react';
 
 export function Earn() {
   const ways = [

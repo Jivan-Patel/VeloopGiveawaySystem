@@ -7,8 +7,7 @@ import {
   MOCK_GIVEAWAYS,
   MOCK_STATS,
   MOCK_PAST_WINNERS,
-  MOCK_USER,
-  MOCK_SERVER_TIME
+  MOCK_USER
 } from '../data/giveawayData';
 
 // Simulated latency helper
@@ -42,7 +41,7 @@ export const mockAdapter = {
   /**
    * GET /api/giveaways/previous
    */
-  async getPreviousGiveaways(page = 1, limit = 10) {
+  async getPreviousGiveaways(page = 1, _limit = 10) {
     await delay(150);
     const completed = MOCK_GIVEAWAYS.filter((g) => g.status === 'ENDED' || g.status === 'ARCHIVED');
     return {
@@ -223,7 +222,7 @@ export const mockAdapter = {
   /**
    * POST /api/giveaways/:id/claim
    */
-  async claimPrize(giveawayId, claimData) {
+  async claimPrize(giveawayId, _claimData) {
     await delay(300);
     userClaims.set(giveawayId, 'SUBMITTED');
     return {

@@ -1,5 +1,4 @@
-import React from 'react';
-import { Gift, Sparkles } from 'lucide-react';
+import { Gift } from 'lucide-react';
 import styles from './SectionHeader.module.css';
 
 /**

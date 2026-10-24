@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Gift, ShieldCheck } from 'lucide-react';
+import { Gift } from 'lucide-react';
 import styles from './ThemedLoader.module.css';
 
 const DEFAULT_MESSAGES = [

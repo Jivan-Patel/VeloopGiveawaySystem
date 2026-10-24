@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Sliders, X, Check, DollarSign, UserCheck, ShieldAlert } from 'lucide-react';
+import { Sliders, X } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
 import styles from './DevStateSwitcher.module.css';
 
@@ -11,7 +11,7 @@ import styles from './DevStateSwitcher.module.css';
 export function DevStateSwitcher() {
   const isDev = import.meta.env.DEV || window.location.search.includes('demo=1');
   const [isOpen, setIsOpen] = useState(false);
-  const { user, isAuthenticated, login, logout, setCustomWallet } = useAuth();
+  const { isAuthenticated, login, logout, setCustomWallet } = useAuth();
 
   if (!isDev) return null;
 

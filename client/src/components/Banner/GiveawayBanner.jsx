@@ -7,7 +7,6 @@ import styles from './GiveawayBanner.module.css';
  * Reusable GiveawayBanner component.
  */
 export function GiveawayBanner({
-  badge = 'Active Campaign',
   heading = 'Summer Rewards 2026 is Live',
   subtext = 'Enter with your promotional Veloop Entries (VE). Verifiable on-chain random winner distribution.',
   ctaText = 'Explore Prizes',
