@@ -1,4 +1,3 @@
-import React from 'react';
 import { Sparkles, ShieldCheck, Lock, Award, ArrowRight, Zap } from 'lucide-react';
 import styles from './GiveawayHero.module.css';
 

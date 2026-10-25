@@ -1,4 +1,3 @@
-import React from 'react';
 import { Rocket, User, Target, Gift, Trophy, FileText, ArrowRight } from 'lucide-react';
 import styles from './ParticipateTimeline.module.css';
 

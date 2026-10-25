@@ -1,4 +1,3 @@
-import React from 'react';
 import { ShieldCheck, Lock, Users, Headphones } from 'lucide-react';
 import styles from './TrustBadges.module.css';
 

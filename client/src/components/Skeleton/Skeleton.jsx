@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './Skeleton.module.css';
 
 export function SkeletonText({ width = '100%', height = '1rem', className = '' }) {

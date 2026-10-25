@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { Gift, Zap, Award, LogIn, LogOut, User } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
