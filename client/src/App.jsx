@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider } from './hooks/useAuth';
+import { AuthProvider } from './context/AuthProvider';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import DevStateSwitcher from './components/DevStateSwitcher/DevStateSwitcher';

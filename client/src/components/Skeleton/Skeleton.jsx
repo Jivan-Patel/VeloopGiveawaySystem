@@ -33,10 +33,14 @@ export function SkeletonCountdown() {
   );
 }
 
-const Skeleton = {
-  Text: SkeletonText,
-  Card: SkeletonCard,
-  Countdown: SkeletonCountdown
-};
+export function Skeleton({ type = 'card', ...props }) {
+  if (type === 'countdown') return <SkeletonCountdown {...props} />;
+  if (type === 'text') return <SkeletonText {...props} />;
+  return <SkeletonCard {...props} />;
+}
+
+Skeleton.Text = SkeletonText;
+Skeleton.Card = SkeletonCard;
+Skeleton.Countdown = SkeletonCountdown;
 
 export default Skeleton;

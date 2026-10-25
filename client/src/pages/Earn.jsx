@@ -42,7 +42,7 @@ export function Earn() {
                 <span className="badge bg-surface-elevated border border-subtle fs-6 text-gold">{w.reward}</span>
               </div>
               <h3 className="h5 fw-bold text-white mb-2">{w.title}</h3>
-              <p className="small text-secondary-custom flex-grow-1">{w.desc}</p>
+              <p className="small text-secondary-custom grow">{w.desc}</p>
               <button className="btn btn-outline-light btn-sm mt-3 d-flex align-items-center justify-content-center gap-2">
                 <span>Start Mission</span>
                 <ArrowRight size={14} />
