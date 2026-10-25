@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Sliders, X } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
 import styles from './DevStateSwitcher.module.css';

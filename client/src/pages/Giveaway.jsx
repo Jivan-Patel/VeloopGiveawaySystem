@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ArrowRight, AlertCircle } from 'lucide-react';
 import { useGiveaways } from '../hooks/useGiveaways';
 import SectionHeader from '../components/SectionHeader/SectionHeader';

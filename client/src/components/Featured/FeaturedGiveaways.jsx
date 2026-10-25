@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ArrowRightLeft } from 'lucide-react';
 import { GIVEAWAY_STATUS } from '../../config/giveawayStatus';
 import PrizeCard from '../Cards/PrizeCard';

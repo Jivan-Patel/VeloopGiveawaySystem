@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { AuthContext } from './AuthContext';
 import giveawayApi from '../services/giveawayApi';
 import { MOCK_USER } from '../data/giveawayData';
