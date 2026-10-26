@@ -364,3 +364,49 @@ export const MOCK_FAQS = [
     answer: 'Zero delivery charges. VELOOP covers standard shipping and handling for all physical merchandise distributed across India.'
   }
 ];
+
+export const MOCK_GIVEAWAY_RULES = [
+  {
+    id: 'rule-1',
+    topic: '1. Eligibility & Verification',
+    summary: 'Age 18+ and verified VELOOP account required',
+    details: 'Open to all registered and active VELOOP account holders aged 18 years or older residing within India. A verified email or mobile number is required to claim rewards.'
+  },
+  {
+    id: 'rule-2',
+    topic: '2. Strict Entry Limit',
+    summary: 'Exactly 1 entry per user per prize pool',
+    details: 'To ensure fairness and equal opportunity, each user is strictly restricted to one single entry per giveaway pool. Duplicate accounts or bot entries are automatically flagged and voided.'
+  },
+  {
+    id: 'rule-3',
+    topic: '3. Entry Currencies & Non-Refundability',
+    summary: 'Conditional deduction of VE, SVE, or Tokens',
+    details: 'Entries require designated in-platform reward balances (VE, SVE, or Tokens). Fees are deducted conditionally upon valid entry confirmation and cannot be refunded once a pool has commenced.'
+  },
+  {
+    id: 'rule-4',
+    topic: '4. Cryptographic Winner Selection',
+    summary: 'Automated backend random number generation',
+    details: 'Winners are determined on the authoritative backend server using cryptographically secure random number selection (crypto.randomInt) across all confirmed entry IDs.'
+  },
+  {
+    id: 'rule-5',
+    topic: '5. 7-Day Claim Window',
+    summary: 'Prompt claim submission required for physical and digital prizes',
+    details: 'Winners will receive immediate platform notifications. Digital vouchers are delivered within 24 hours. Physical prize winners must submit valid Indian postal delivery information within 7 calendar days.'
+  },
+  {
+    id: 'rule-6',
+    topic: '6. Zero Delivery & Shipping Fees',
+    summary: '100% free doorstep delivery across India',
+    details: 'VELOOP covers all standard shipping, handling, and transit insurance costs for physical items delivered across India. Winners are never asked for shipping payment.'
+  },
+  {
+    id: 'rule-7',
+    topic: '7. Anti-Fraud & Account Disqualification',
+    summary: 'Zero tolerance for multi-accounting or automated exploits',
+    details: 'Any attempt to exploit the platform through emulators, automated scripts, multiple accounts, or fraudulent activities results in immediate entry disqualification and permanent account suspension.'
+  }
+];
+

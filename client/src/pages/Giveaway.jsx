@@ -5,6 +5,8 @@ import SectionHeader from '../components/SectionHeader/SectionHeader';
 import GiveawayStats from '../components/Stats/GiveawayStats';
 import PrizeCard from '../components/Cards/PrizeCard';
 import ParticipateTimeline from '../components/ParticipateTimeline/ParticipateTimeline';
+import GiveawayRules from '../components/Rules/GiveawayRules';
+import FAQAccordion from '../components/FAQ/FAQAccordion';
 import TrustBadges from '../components/Trust/TrustBadges';
 import ThemedLoader from '../components/Loader/ThemedLoader';
 import styles from './Giveaway.module.css';
@@ -15,7 +17,9 @@ import styles from './Giveaway.module.css';
  * 1. Section Header (Flanked by 3D gift box podiums with confetti, gradient title)
  * 2. Stats Strip (Total Giveaways, Total Participants, Prizes Won, Ends In)
  * 3. Main Area: 4 Featured Prize Cards + How to Participate Timeline sidebar
- * 4. Trust & Security Strip (4 verified platform guarantees)
+ * 4. Official Giveaway Rules & Guidelines (7 Topics)
+ * 5. Frequently Asked Questions Accordion (7 Questions)
+ * 6. Trust & Security Strip (4 verified platform guarantees)
  */
 export function Giveaway() {
   const {
@@ -101,7 +105,13 @@ export function Giveaway() {
         </div>
       </div>
 
-      {/* 4. Bottom Trust & Security Strip */}
+      {/* 4. Official Giveaway Rules & Guidelines (7 Topics) */}
+      <GiveawayRules />
+
+      {/* 5. Frequently Asked Questions Accordion (7 Questions) */}
+      <FAQAccordion />
+
+      {/* 6. Bottom Trust & Security Strip */}
       <TrustBadges />
     </div>
   );

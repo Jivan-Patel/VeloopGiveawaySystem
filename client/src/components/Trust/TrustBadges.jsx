@@ -14,26 +14,26 @@ export function TrustBadges() {
     {
       icon: ShieldCheck,
       colorClass: styles.purple,
-      title: '100% Fair & Transparent',
-      desc: 'All giveaways are conducted fairly and transparently.'
+      title: 'Clear & Verifiable Rules',
+      desc: 'Cryptographically randomized draws on an authoritative backend ledger.'
     },
     {
       icon: Lock,
       colorClass: styles.blue,
       title: 'Secure & Safe',
-      desc: 'Your data and privacy are our top priority.'
+      desc: 'Your data, entry state, and token balances are protected with enterprise-grade encryption.'
     },
     {
       icon: Users,
       colorClass: styles.green,
-      title: 'Trusted by 10K+ Users',
-      desc: 'Join thousands of happy users who trust VELoop Rewards.'
+      title: 'Transparent Community',
+      desc: 'Real participants, verified prize distributions, and zero hidden shipping costs.'
     },
     {
       icon: Headphones,
       colorClass: styles.orange,
-      title: '24/7 Customer Support',
-      desc: "We're here to help you anytime, anywhere."
+      title: '24/7 Dedicated Support',
+      desc: 'Prompt assistance for account inquiries, reward tracking, and delivery support.'
     }
   ];
 
