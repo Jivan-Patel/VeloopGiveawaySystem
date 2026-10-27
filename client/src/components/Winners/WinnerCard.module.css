@@ -1,0 +1,152 @@
+.card {
+  background: rgba(18, 26, 22, 0.75);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-radius: 1rem;
+  padding: 1.25rem 1.35rem;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+  backdrop-filter: blur(8px);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(212, 175, 55, 0.45);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0A0F0D;
+  font-weight: 700;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+
+.idWrap {
+  flex: 1;
+  min-width: 0;
+}
+
+.userId {
+  display: block;
+  font-size: 0.925rem;
+  font-weight: 700;
+  color: #F8FAFC;
+  letter-spacing: 0.02em;
+}
+
+.campaign {
+  display: block;
+  font-size: 0.75rem;
+  color: #94A3B8;
+}
+
+@keyframes badgeGlow {
+  0% {
+    box-shadow: 0 0 0 rgba(16, 185, 129, 0);
+  }
+  50% {
+    box-shadow: 0 0 10px rgba(52, 211, 153, 0.45);
+  }
+  100% {
+    box-shadow: 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+.verifiedBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.2rem 0.55rem;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 999px;
+  color: #34D399;
+  font-size: 0.7rem;
+  font-weight: 600;
+  animation: badgeGlow 0.6s ease-out;
+}
+
+.prizeSection {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.85rem 1rem;
+  background: rgba(10, 15, 13, 0.65);
+  border: 1px solid rgba(148, 163, 184, 0.1);
+  border-radius: 0.75rem;
+  margin-bottom: 0.85rem;
+}
+
+@keyframes prizePop {
+  0% {
+    transform: scale(0.9);
+    box-shadow: 0 0 0 rgba(245, 158, 11, 0);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 14px rgba(245, 158, 11, 0.5);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(245, 158, 11, 0);
+  }
+}
+
+.prizeIcon {
+  width: 34px;
+  height: 34px;
+  border-radius: 0.5rem;
+  background: rgba(212, 175, 55, 0.15);
+  color: #F59E0B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  animation: prizePop 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.prizeDetails {
+  flex: 1;
+  min-width: 0;
+}
+
+.prizeLabel {
+  display: block;
+  font-size: 0.7rem;
+  color: #94A3B8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.prizeName {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  color: #64748B;
+}
+
+.calendarIcon {
+  color: #94A3B8;
+}

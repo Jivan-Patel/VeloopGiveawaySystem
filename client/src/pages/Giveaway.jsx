@@ -5,6 +5,7 @@ import SectionHeader from '../components/SectionHeader/SectionHeader';
 import GiveawayStats from '../components/Stats/GiveawayStats';
 import PrizeCard from '../components/Cards/PrizeCard';
 import ParticipateTimeline from '../components/ParticipateTimeline/ParticipateTimeline';
+import WinnersTabs from '../components/Winners/WinnersTabs';
 import GiveawayRules from '../components/Rules/GiveawayRules';
 import FAQAccordion from '../components/FAQ/FAQAccordion';
 import TrustBadges from '../components/Trust/TrustBadges';
@@ -105,7 +106,10 @@ export function Giveaway() {
         </div>
       </div>
 
-      {/* 4. Official Giveaway Rules & Guidelines (7 Topics) */}
+      {/* 4. Verified Winners Showcase (WinnerSlider & Previous Winners Tabs) */}
+      <WinnersTabs livePoolsCount={giveaways.filter((g) => g.status === 'LIVE').length} />
+
+      {/* 5. Official Giveaway Rules & Guidelines (7 Topics) */}
       <GiveawayRules />
 
       {/* 5. Frequently Asked Questions Accordion (7 Questions) */}
