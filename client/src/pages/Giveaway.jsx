@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { ArrowRight, AlertCircle } from 'lucide-react';
 import { useGiveaways } from '../hooks/useGiveaways';
+import { useAuth } from '../hooks/useAuth';
+import { USER_STATE } from '../config/giveawayStatus';
 import SectionHeader from '../components/SectionHeader/SectionHeader';
 import GiveawayStats from '../components/Stats/GiveawayStats';
 import PrizeCard from '../components/Cards/PrizeCard';
@@ -10,6 +12,10 @@ import GiveawayRules from '../components/Rules/GiveawayRules';
 import FAQAccordion from '../components/FAQ/FAQAccordion';
 import TrustBadges from '../components/Trust/TrustBadges';
 import ThemedLoader from '../components/Loader/ThemedLoader';
+import PersonalStatusPanel from '../components/PersonalPanel/PersonalStatusPanel';
+import ControlledReveal from '../components/ControlledReveal/ControlledReveal';
+import NextGiveawayPreview from '../components/Preview/NextGiveawayPreview';
+import PrizeClaimModal from '../components/Claims/PrizeClaimModal';
 import styles from './Giveaway.module.css';
 
 /**
@@ -31,7 +37,9 @@ export function Giveaway() {
     refetch
   } = useGiveaways();
 
+  const { userState, claimPrizeType } = useAuth();
   const [showAll, setShowAll] = useState(false);
+  const [isClaimModalOpen, setIsClaimModalOpen] = useState(false);
 
   if (loading) {
     return <ThemedLoader fullScreen={false} />;
@@ -64,7 +72,16 @@ export function Giveaway() {
       {/* 2. Platform Summary Metrics Strip */}
       <GiveawayStats stats={stats} />
 
-      {/* 3. Main Row: Left (4 Featured Prize Cards) + Right (How to Participate Sidebar) */}
+      {/* 3. Controlled Winner Selection Simulation (Revealing State) */}
+      <ControlledReveal />
+
+      {/* 4. Contextual Personal Status Panel (All 5 User States) */}
+      <PersonalStatusPanel onOpenClaimModal={() => setIsClaimModalOpen(true)} />
+
+      {/* 5. Next Giveaway Preview (Contextual for Non-Winners or Early Access) */}
+      {userState === USER_STATE.NON_WINNER && <NextGiveawayPreview />}
+
+      {/* 6. Main Row: Left (4 Featured Prize Cards) + Right (How to Participate Sidebar) */}
       <div className="row g-4 mb-2">
         {/* Left Column: Featured Giveaways */}
         <div className="col-12 col-xl-9">
@@ -117,6 +134,18 @@ export function Giveaway() {
 
       {/* 6. Bottom Trust & Security Strip */}
       <TrustBadges />
+
+      {/* 7. Prize Claim Modal Dialog */}
+      <PrizeClaimModal
+        isOpen={isClaimModalOpen}
+        onClose={() => setIsClaimModalOpen(false)}
+        prize={{
+          name: claimPrizeType === 'PHYSICAL' ? 'iPhone 15 Pro (128GB)' : 'Amazon ₹2,000 Gift Voucher',
+          type: claimPrizeType,
+          image: claimPrizeType === 'PHYSICAL' ? '/assets/prizes/iphone15pro.png' : '/assets/prizes/amazon2000.png'
+        }}
+        giveawayTitle="Summer Rewards 2026"
+      />
     </div>
   );
 }
