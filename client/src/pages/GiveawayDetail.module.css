@@ -1,0 +1,38 @@
+.pageContainer {
+  padding-top: 1.5rem;
+  padding-bottom: 2rem;
+  min-height: calc(100vh - 80px);
+}
+
+.mainLayoutGrid {
+  display: grid;
+  grid-template-columns: 1.55fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (max-width: 991px) {
+  .mainLayoutGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+.leftContentArea {
+  display: flex;
+  flex-direction: column;
+}
+
+.rightSidebarArea {
+  position: sticky;
+  top: 96px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+@media (max-width: 991px) {
+  .rightSidebarArea {
+    position: static;
+  }
+}

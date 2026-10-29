@@ -1,0 +1,291 @@
+.heroContainer {
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.navRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #94A3B8;
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 600;
+  padding: 0.45rem 0.85rem;
+  border-radius: var(--radius-full, 9999px);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.2s ease;
+}
+
+.backLink:hover {
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.18);
+  transform: translateX(-2px);
+}
+
+.backIcon {
+  color: var(--color-gold, #D4AF37);
+  transition: transform 0.2s ease;
+}
+
+.backLink:hover .backIcon {
+  transform: translateX(-2px);
+}
+
+/* Responsive Back Navigation Text (Desktop: "Giveaway Home", Mobile: "← Giveaway") */
+.desktopNavText {
+  display: inline;
+}
+
+.mobileNavText {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .desktopNavText {
+    display: none;
+  }
+  .mobileNavText {
+    display: inline;
+  }
+}
+
+.campaignPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.74rem;
+  color: #94A3B8;
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--radius-full, 9999px);
+  font-weight: 600;
+}
+
+.shieldIcon {
+  color: #10B981;
+}
+
+.heroGrid {
+  display: grid;
+  grid-template-columns: 1.1fr 1.3fr;
+  gap: 2rem;
+  align-items: stretch;
+}
+
+@media (max-width: 991px) {
+  .heroGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+/* Image Showcase Column */
+.imageColumn {
+  display: flex;
+}
+
+.imageCard {
+  position: relative;
+  width: 100%;
+  background: linear-gradient(135deg, rgba(18, 24, 20, 0.8) 0%, rgba(10, 14, 12, 0.95) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-2xl, 20px);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6);
+  min-height: 380px;
+}
+
+.ambientGlow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle, var(--prize-accent, #8B5CF6) 0%, transparent 70%);
+  opacity: 0.28;
+  transform: translate(-50%, -50%);
+  filter: blur(48px);
+  pointer-events: none;
+}
+
+.topBadgesRow {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rankBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: #FFFFFF;
+  font-size: 0.74rem;
+  font-weight: 800;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-full, 9999px);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.statusBadge {
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-full, 9999px);
+  letter-spacing: 0.03em;
+}
+
+.imageWrapper {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 280px;
+  height: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.productImg {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 16px 32px rgba(0, 0, 0, 0.6));
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.imageCard:hover .productImg {
+  transform: scale(1.04) translateY(-4px);
+}
+
+.retailBadge {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-full, 9999px);
+}
+
+.retailLabel {
+  font-size: 0.72rem;
+  color: #94A3B8;
+  font-weight: 500;
+}
+
+.retailVal {
+  font-size: 0.8rem;
+  color: var(--color-gold, #F5B83D);
+  font-weight: 800;
+}
+
+/* Content Showcase Column */
+.contentColumn {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.titleArea {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.categoryPill {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--color-gold, #D4AF37);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.title {
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+@media (max-width: 576px) {
+  .title {
+    font-size: 1.65rem;
+  }
+}
+
+.subtitle {
+  font-size: 0.98rem;
+  color: #94A3B8;
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* Synchronized Countdown Box */
+.countdownBox {
+  background: rgba(18, 24, 20, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: var(--radius-xl, 16px);
+  padding: 1.25rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.4);
+}
+
+.countdownHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.clockIcon {
+  color: #F59E0B;
+}
+
+.countdownTitle {
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: #E2E8F0;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.timerWrap {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.countdownSub {
+  font-size: 0.72rem;
+  color: #64748B;
+  line-height: 1.4;
+}

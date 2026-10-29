@@ -1,43 +1,71 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Clock, ShieldCheck, CheckCircle } from 'lucide-react';
+import { useParams } from 'react-router-dom';
 import giveawayApi from '../services/giveawayApi';
-import { Countdown } from '../components/Countdown/Countdown';
-import { useAuth } from '../hooks/useAuth';
-import { formatCurrencyAmount } from '../config/currencies';
-import { getStatusBadgeConfig } from '../config/giveawayStatus';
+import ThemedLoader from '../components/Loader/ThemedLoader';
+import DetailHero from '../components/Detail/DetailHero';
+import PrizeInfoCard from '../components/Detail/PrizeInfoCard';
+import AboutPrize from '../components/Detail/AboutPrize';
+import HowItWorksSteps from '../components/Detail/HowItWorksSteps';
+import DetailRules from '../components/Detail/DetailRules';
+import TermsAndConditions from '../components/Detail/TermsAndConditions';
+import ImportantInfoAccordion from '../components/Detail/ImportantInfoAccordion';
+import DetailFooter from '../components/Detail/DetailFooter';
+import DetailNotFound from '../components/Detail/DetailNotFound';
+import PrizeClaimModal from '../components/Claims/PrizeClaimModal';
+import styles from './GiveawayDetail.module.css';
 
+/**
+ * GiveawayDetail Page Component (PRD Section 128 & WD8 Milestone)
+ * Route: `/giveaway/:slug`
+ * Renders:
+ * - Responsive back navigation ("Giveaway Home" desktop / "← Giveaway" mobile)
+ * - Hero with prize showcase, category rank badge, ambient glow, and sync countdown
+ * - Prize information card (winners, participants, ends in, fee, CTA)
+ * - Real-time Balance Panel (balance, fee, balance-after, sufficiency status)
+ * - About the Prize (specifications, retail value, authenticity)
+ * - How This Giveaway Works (7 numbered steps)
+ * - Participation Rules
+ * - Terms & Conditions (10 topics, placeholders marked)
+ * - Expandable Important Information accordion (Tax, Warranty, Unclaimed)
+ * - Compact footer & Custom 404 state for unknown slugs
+ */
 export function GiveawayDetail() {
   const { slug } = useParams();
-  const { isAuthenticated } = useAuth();
 
   const [giveaway, setGiveaway] = useState(null);
   const [userStatus, setUserStatus] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [isJoining, setIsJoining] = useState(false);
-  const [joinSuccess, setJoinSuccess] = useState(false);
+  const [isClaimModalOpen, setIsClaimModalOpen] = useState(false);
 
   useEffect(() => {
     let ignore = false;
 
-    async function loadGiveawayDetail() {
+    async function loadGiveaway() {
+      setLoading(true);
+      setError(null);
       try {
         const res = await giveawayApi.getGiveawayBySlug(slug);
-        if (!ignore && res.data) {
+        if (!ignore && res.data?.giveaway) {
           setGiveaway(res.data.giveaway);
 
-          if (res.data.giveaway?.giveawayId) {
-            const statusRes = await giveawayApi.getMyStatus(res.data.giveaway.giveawayId);
-            if (!ignore) {
-              setUserStatus(statusRes.data || null);
+          if (res.data.giveaway.giveawayId) {
+            try {
+              const statusRes = await giveawayApi.getMyStatus(res.data.giveaway.giveawayId);
+              if (!ignore) {
+                setUserStatus(statusRes.data || null);
+              }
+            } catch {
+              // Status lookup non-fatal in mock/visitor mode
             }
           }
+        } else if (!ignore) {
+          setGiveaway(null);
         }
       } catch (err) {
         if (!ignore) {
-          console.error('[GiveawayDetail] Error loading data:', err);
           setError(err);
+          setGiveaway(null);
         }
       } finally {
         if (!ignore) {
@@ -46,190 +74,100 @@ export function GiveawayDetail() {
       }
     }
 
-    loadGiveawayDetail();
+    loadGiveaway();
 
     return () => {
       ignore = true;
     };
   }, [slug]);
 
-  async function reloadData() {
+  const reloadData = async () => {
     try {
       const res = await giveawayApi.getGiveawayBySlug(slug);
-      if (res.data) {
+      if (res.data?.giveaway) {
         setGiveaway(res.data.giveaway);
-        if (res.data.giveaway?.giveawayId) {
+        if (res.data.giveaway.giveawayId) {
           const statusRes = await giveawayApi.getMyStatus(res.data.giveaway.giveawayId);
           setUserStatus(statusRes.data || null);
         }
       }
-    } catch (err) {
-      console.error('[GiveawayDetail] Error reloading data:', err);
+    } catch {
+      // Reload error handled gracefully
     }
-  }
+  };
 
-  const handleJoin = async () => {
-    if (!giveaway) return;
-    try {
-      setIsJoining(true);
-      await giveawayApi.joinGiveaway(giveaway.giveawayId, {
-        'Idempotency-Key': crypto.randomUUID()
-      });
-      setJoinSuccess(true);
-      // Refresh status
-      const statusRes = await giveawayApi.getMyStatus(giveaway.giveawayId);
-      setUserStatus(statusRes.data || null);
-    } catch (err) {
-      alert(err.message || 'Failed to join giveaway');
-    } finally {
-      setIsJoining(false);
+  const handleJoinSuccess = async () => {
+    if (giveaway?.giveawayId) {
+      try {
+        const statusRes = await giveawayApi.getMyStatus(giveaway.giveawayId);
+        setUserStatus(statusRes.data || null);
+      } catch {
+        setUserStatus({ isJoined: true });
+      }
     }
   };
 
   if (loading) {
-    return (
-      <div className="container py-5 text-center">
-        <div className="spinner-border text-primary mb-3" />
-        <p className="text-secondary-custom">Loading giveaway specification…</p>
-      </div>
-    );
+    return <ThemedLoader fullScreen={false} />;
   }
 
+  // 404 State when slug is unknown or not present in database
   if (error || !giveaway) {
     return (
-      <div className="container py-5 text-center">
-        <h2 className="h4 text-danger mb-3">Giveaway Not Found</h2>
-        <p className="text-secondary-custom mb-4">We couldn't locate the prize pool with slug "{slug}".</p>
-        <Link to="/giveaway" className="btn btn-outline-light">
-          ← Back to Giveaways
-        </Link>
+      <div className="container py-4">
+        <DetailNotFound slug={slug} />
       </div>
     );
   }
 
-  const badge = getStatusBadgeConfig(giveaway.status, giveaway.winnersStatus);
-  const isJoined = userStatus?.isJoined || joinSuccess;
-
   return (
-    <div className="container py-5">
-      {/* Back Link */}
-      <Link to="/giveaway" className="d-inline-flex align-items-center gap-2 text-secondary-custom mb-4 text-decoration-none">
-        <ArrowLeft size={16} />
-        <span>Giveaway Home</span>
-      </Link>
+    <div className={styles.pageContainer}>
+      <div className="container">
+        {/* 1. Detail Hero with Back Navigation, Badges, Image & Countdown */}
+        <DetailHero giveaway={giveaway} onTimerZero={reloadData} />
 
-      <div className="row g-5">
-        {/* Left Column: Image and details */}
-        <div className="col-12 col-lg-7">
-          <div className="rounded-4 border border-subtle overflow-hidden mb-4 shadow-sm" style={{ maxHeight: '420px', background: 'var(--color-bg-surface)' }}>
-            <img
-              src={giveaway.prize.image}
-              alt={giveaway.prize.name}
-              onError={(e) => {
-                if (giveaway.prize.localImage && e.currentTarget.src !== giveaway.prize.localImage) {
-                  e.currentTarget.src = giveaway.prize.localImage;
-                }
-              }}
-              style={{ width: '100%', maxHeight: '420px', objectFit: 'cover' }}
+        {/* 2. Main Two-Column Layout */}
+        <div className={styles.mainLayoutGrid}>
+          {/* Left Column: Comprehensive Information & Rules */}
+          <div className={styles.leftContentArea}>
+            {/* About the Prize */}
+            <AboutPrize giveaway={giveaway} />
+
+            {/* How This Giveaway Works (7 Steps) */}
+            <HowItWorksSteps />
+
+            {/* Participation Rules */}
+            <DetailRules />
+
+            {/* Terms and Conditions (10 Topics, placeholders flagged) */}
+            <TermsAndConditions />
+
+            {/* Expandable Important Information (Tax, Warranty, Unclaimed) */}
+            <ImportantInfoAccordion />
+          </div>
+
+          {/* Right Column: Sticky Prize Info Card & Real-Time Balance Panel */}
+          <div className={styles.rightSidebarArea}>
+            <PrizeInfoCard
+              giveaway={giveaway}
+              userStatus={userStatus}
+              onJoinSuccess={handleJoinSuccess}
+              onOpenClaim={() => setIsClaimModalOpen(true)}
             />
-          </div>
-
-          <h1 className="h2 fw-bold text-white mb-3">{giveaway.title}</h1>
-          <p className="lead text-secondary-custom mb-4">{giveaway.description}</p>
-
-          {/* Rules */}
-          <div className="card bg-surface border-subtle p-4 mb-4">
-            <h3 className="h6 fw-bold text-white text-uppercase tracking-wider mb-3">
-              Participation Rules
-            </h3>
-            <ul className="list-unstyled mb-0 d-flex flex-column gap-2">
-              {giveaway.rules?.map((rule, idx) => (
-                <li key={idx} className="small text-secondary-custom d-flex align-items-start gap-2">
-                  <span className="text-emerald">•</span>
-                  <span>{rule}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        {/* Right Column: Entry & Status Card */}
-        <div className="col-12 col-lg-5">
-          <div className="card bg-surface border-subtle p-4 shadow-lg sticky-top" style={{ top: '100px' }}>
-            <div className="d-flex justify-content-between align-items-center mb-3">
-              <span className="badge rounded-pill px-3 py-2" style={{ backgroundColor: badge.bgColor, color: badge.color }}>
-                {badge.label}
-              </span>
-              <span className="small text-muted-custom">
-                {giveaway.winnerCount} {giveaway.winnerCount === 1 ? 'Winner' : 'Winners'}
-              </span>
-            </div>
-
-            {/* Countdown Display */}
-            <div className="p-3 rounded-3 bg-surface-elevated border border-subtle text-center mb-4">
-              <div className="small text-muted-custom mb-2 d-flex justify-content-center align-items-center gap-1">
-                <Clock size={14} />
-                <span>Ends In</span>
-              </div>
-              <div className="d-flex justify-content-center">
-                <Countdown targetDate={giveaway?.endAt} onZero={reloadData} />
-              </div>
-            </div>
-
-            {/* Entry Fee & Balance Comparison */}
-            <div className="mb-4">
-              <div className="d-flex justify-content-between align-items-center py-2 border-bottom border-subtle">
-                <span className="text-secondary-custom small">Required Entry Fee:</span>
-                <span className="fw-bold text-white">
-                  {formatCurrencyAmount(giveaway.entry.amount, giveaway.entry.currency)}
-                </span>
-              </div>
-              {isAuthenticated && (
-                <div className="d-flex justify-content-between align-items-center py-2 border-bottom border-subtle">
-                  <span className="text-secondary-custom small">Your Balance:</span>
-                  <span className="fw-bold text-emerald">
-                    {formatCurrencyAmount(userStatus?.userBalance || 0, giveaway.entry.currency)}
-                  </span>
-                </div>
-              )}
-            </div>
-
-            {/* Participation CTA Button */}
-            {!isAuthenticated ? (
-              <Link to="/login" className="btn btn-primary-gradient w-100 py-3 fw-bold">
-                Login to Participate
-              </Link>
-            ) : isJoined ? (
-              <div className="alert alert-success d-flex align-items-center gap-2 mb-0">
-                <CheckCircle size={20} />
-                <div>
-                  <div className="fw-bold">You're Participating ✓</div>
-                  <div className="small">Your entry is registered on the backend.</div>
-                </div>
-              </div>
-            ) : userStatus?.canJoin ? (
-              <button
-                onClick={handleJoin}
-                disabled={isJoining}
-                className="btn btn-gold-gradient w-100 py-3 fw-bold"
-              >
-                {isJoining ? 'Registering Entry…' : `Join for ${formatCurrencyAmount(giveaway.entry.amount, giveaway.entry.currency)}`}
-              </button>
-            ) : (
-              <Link to="/earn" className="btn btn-outline-warning w-100 py-3 fw-bold">
-                Earn More {giveaway.entry.currency} to Join
-              </Link>
-            )}
-
-            <div className="mt-3 text-center">
-              <span className="small text-muted-custom d-flex justify-content-center align-items-center gap-1">
-                <ShieldCheck size={14} />
-                <span>Authoritative backend validation & deduction</span>
-              </span>
-            </div>
           </div>
         </div>
       </div>
+
+      {/* 3. Compact Detail Footer */}
+      <DetailFooter />
+
+      {/* 4. Prize Claim Modal (For Winner State) */}
+      <PrizeClaimModal
+        isOpen={isClaimModalOpen}
+        onClose={() => setIsClaimModalOpen(false)}
+        prize={giveaway.prize}
+        giveawayTitle={giveaway.title}
+      />
     </div>
   );
 }
