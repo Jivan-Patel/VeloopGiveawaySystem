@@ -1,39 +1,40 @@
-import { Rocket, User, Target, Gift, Trophy, FileText, ArrowRight } from 'lucide-react';
+import { Rocket, User, Coins, Ticket, Trophy, FileText, ArrowRight } from 'lucide-react';
 import styles from './ParticipateTimeline.module.css';
 
 /**
- * ParticipateTimeline Component - Strictly matching Ref_02.jpeg (Document last page)
- * "How to Participate?" sidebar panel with 4 connected step circles and guidelines CTA.
+ * ParticipateTimeline Component - Modern Luxury Edition
+ * Sleek gamified timeline with glowing step indicators, connecting progress beam,
+ * and direct smooth scroll to official rules.
  */
 export function ParticipateTimeline() {
   const steps = [
     {
-      num: 1,
+      num: '01',
       icon: User,
+      colorClass: styles.emeraldStep,
+      title: '1. Create / Verify Account',
+      desc: 'Sign up or login to activate your VELOOP rewards wallet.'
+    },
+    {
+      num: '02',
+      icon: Coins,
+      colorClass: styles.cyanStep,
+      title: '2. Select Drop & Entry Fee',
+      desc: 'Pick your desired prize pool and pay entry in VE, SVE, or Tokens.'
+    },
+    {
+      num: '03',
+      icon: Ticket,
       colorClass: styles.purpleStep,
-      title: '1. Sign Up / Login',
-      desc: 'Create your account or login to get started.'
+      title: '3. Receive Ledger Ticket',
+      desc: 'Your entry ticket is cryptographically registered on the platform ledger.'
     },
     {
-      num: 2,
-      icon: Target,
-      colorClass: styles.blueStep,
-      title: '2. Complete Tasks',
-      desc: 'Complete simple tasks and earn more entries.'
-    },
-    {
-      num: 3,
-      icon: Gift,
-      colorClass: styles.greenStep,
-      title: '3. Get Entries',
-      desc: 'Each task gives you entries for the giveaway.'
-    },
-    {
-      num: 4,
+      num: '04',
       icon: Trophy,
-      colorClass: styles.orangeStep,
-      title: '4. Win Rewards',
-      desc: 'Winners are selected randomly after the giveaway ends.'
+      colorClass: styles.goldStep,
+      title: '4. Win & Claim Prize',
+      desc: 'Winners are randomly finalized on draw end with 7 days to claim.'
     }
   ];
 
@@ -42,10 +43,14 @@ export function ParticipateTimeline() {
       {/* Header */}
       <div className={styles.header}>
         <div className={styles.titleRow}>
-          <Rocket size={20} className={styles.rocketIcon} />
-          <h2 className={styles.title}>How to Participate?</h2>
+          <div className={styles.rocketIconWrap}>
+            <Rocket size={18} className={styles.rocketIcon} />
+          </div>
+          <div>
+            <h2 className={styles.title}>How to Join?</h2>
+            <p className={styles.subtitle}>4 transparent steps to win rewards</p>
+          </div>
         </div>
-        <p className={styles.subtitle}>Follow these simple steps to join and win.</p>
       </div>
 
       {/* Stepper Timeline */}
@@ -61,12 +66,15 @@ export function ParticipateTimeline() {
                 <div className={`${styles.iconCircle} ${step.colorClass}`}>
                   <Icon size={16} />
                 </div>
-                {!isLast && <div className={styles.dashedLine} />}
+                {!isLast && <div className={styles.connectorBeam} />}
               </div>
 
               {/* Text Description */}
               <div className={styles.contentCol}>
-                <h3 className={styles.stepTitle}>{step.title}</h3>
+                <div className={styles.stepHeader}>
+                  <h3 className={styles.stepTitle}>{step.title}</h3>
+                  <span className={styles.stepNumPill}>{step.num}</span>
+                </div>
                 <p className={styles.stepDesc}>{step.desc}</p>
               </div>
             </div>
@@ -80,13 +88,13 @@ export function ParticipateTimeline() {
         className={styles.rulesButton}
         onClick={(e) => {
           e.preventDefault();
-          const rulesEl = document.getElementById('rules-modal-trigger') || document.getElementById('rules');
+          const rulesEl = document.getElementById('rules-modal-trigger') || document.getElementById('rules') || document.getElementById('rules-section');
           if (rulesEl) rulesEl.scrollIntoView({ behavior: 'smooth' });
         }}
       >
-        <FileText size={16} />
-        <span>View Rules & Guidelines</span>
-        <ArrowRight size={15} />
+        <FileText size={15} />
+        <span>View Official Rules</span>
+        <ArrowRight size={14} className={styles.arrowIcon} />
       </a>
     </aside>
   );

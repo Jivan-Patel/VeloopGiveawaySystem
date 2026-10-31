@@ -1,13 +1,15 @@
 .section {
-  margin-top: 2.5rem;
-  margin-bottom: 2.5rem;
+  margin-top: 2.75rem;
+  margin-bottom: 2.75rem;
   padding: 2.25rem 2rem;
-  background: linear-gradient(135deg, rgba(16, 24, 20, 0.7) 0%, rgba(10, 15, 13, 0.9) 100%);
-  border: 1px solid rgba(16, 185, 129, 0.18);
-  border-radius: 1.25rem;
-  backdrop-filter: blur(12px);
+  background: linear-gradient(180deg, rgba(18, 24, 21, 0.82) 0%, rgba(11, 15, 13, 0.94) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.5rem;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   position: relative;
   overflow: hidden;
+  box-shadow: 0 16px 44px -8px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .section::before {
@@ -17,7 +19,7 @@
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, transparent, #10B981 30%, #D4AF37 70%, transparent);
+  background: linear-gradient(90deg, transparent, #10B981 30%, #F5B83D 70%, transparent);
 }
 
 .header {
@@ -30,66 +32,69 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.35rem 0.85rem;
-  background: rgba(212, 175, 55, 0.12);
-  border: 1px solid rgba(212, 175, 55, 0.3);
+  padding: 0.35rem 0.95rem;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.3);
   border-radius: 999px;
-  color: #F3E5AB;
+  color: #34D399;
   font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
+  font-weight: 700;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   margin-bottom: 0.75rem;
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.15);
 }
 
 .badgeIcon {
-  color: #D4AF37;
+  color: #34D399;
 }
 
 .title {
   color: #FFFFFF;
-  font-size: 1.65rem;
-  font-weight: 700;
+  font-size: 1.75rem;
+  font-weight: 800;
   letter-spacing: -0.02em;
   margin-bottom: 0.5rem;
 }
 
 .subtitle {
   color: #94A3B8;
-  font-size: 0.9rem;
-  line-height: 1.5;
+  font-size: 0.92rem;
+  line-height: 1.55;
   margin-bottom: 0;
 }
 
 .rulesGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
+  gap: 1.15rem;
 }
 
 .ruleCard {
-  background: rgba(15, 23, 20, 0.6);
-  border: 1px solid rgba(148, 163, 184, 0.12);
-  border-radius: 0.875rem;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  background: rgba(22, 30, 26, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 1rem;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
 }
 
 .ruleCard:hover {
-  border-color: rgba(16, 185, 129, 0.35);
-  background: rgba(18, 28, 24, 0.85);
-  transform: translateY(-1px);
+  border-color: rgba(16, 185, 129, 0.4);
+  background: rgba(26, 36, 31, 0.85);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
 }
 
 .ruleCardExpanded {
-  border-color: rgba(16, 185, 129, 0.5);
-  background: rgba(20, 32, 27, 0.95);
-  box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.5);
+  border-color: rgba(16, 185, 129, 0.6);
+  background: rgba(24, 35, 30, 0.95);
+  box-shadow: 0 10px 30px -4px rgba(0, 0, 0, 0.6), 0 0 20px rgba(16, 185, 129, 0.15);
 }
 
 .ruleCardHeader {
   width: 100%;
-  padding: 1.15rem 1.25rem;
+  padding: 1.15rem 1.35rem;
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -100,18 +105,13 @@
   color: inherit;
 }
 
-.ruleCardHeader:focus-visible {
-  outline: 2px solid #10B981;
-  outline-offset: -2px;
-}
-
-.ruleIconWrap {
+.iconWrap {
   width: 38px;
   height: 38px;
-  border-radius: 0.625rem;
-  background: rgba(16, 185, 129, 0.12);
-  border: 1px solid rgba(16, 185, 129, 0.25);
-  color: #10B981;
+  border-radius: 10px;
+  background: rgba(16, 185, 129, 0.14);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: #34D399;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -119,80 +119,74 @@
   transition: transform 0.2s ease;
 }
 
-.ruleCard:hover .ruleIconWrap {
-  transform: scale(1.05);
+.ruleCard:hover .iconWrap {
+  transform: scale(1.08);
 }
 
-.ruleHeaderContent {
+.cardTitle {
   flex: 1;
-  min-width: 0;
-}
-
-.ruleTopic {
   font-size: 0.95rem;
-  font-weight: 600;
-  color: #F8FAFC;
-  margin-bottom: 0.2rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0;
 }
 
-.ruleSummary {
-  font-size: 0.8rem;
+.chevronIcon {
   color: #94A3B8;
-  margin-bottom: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.toggleIconWrap {
-  color: #64748B;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-shrink: 0;
   transition: color 0.2s ease;
 }
 
-.ruleCard:hover .toggleIconWrap,
-.ruleCardExpanded .toggleIconWrap {
-  color: #10B981;
+.ruleCard:hover .chevronIcon {
+  color: #34D399;
 }
 
-.ruleDetails {
-  padding: 0 1.25rem 1.15rem 4.15rem;
-  color: #CBD5E1;
-  font-size: 0.85rem;
-  line-height: 1.55;
-  border-top: 1px dashed rgba(16, 185, 129, 0.15);
-  margin-top: 0.15rem;
-  padding-top: 0.85rem;
+.ruleCardBody {
+  padding: 0 1.35rem 1.25rem 1.35rem;
+  animation: expandFade 0.25s ease-out;
 }
 
-.ruleDetails p {
-  margin-bottom: 0;
+.ruleSummary {
+  font-size: 0.82rem;
+  color: #34D399;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
 }
 
-@media (max-width: 991px) {
+.ruleDetail {
+  font-size: 0.8rem;
+  color: #94A3B8;
+  line-height: 1.5;
+  margin-bottom: 0.65rem;
+}
+
+.rulePenalty {
+  font-size: 0.74rem;
+  color: #F87171;
+  font-weight: 600;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  padding: 0.35rem 0.65rem;
+  border-radius: 6px;
+  margin: 0;
+}
+
+@keyframes expandFade {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 900px) {
   .rulesGrid {
     grid-template-columns: 1fr;
   }
-
-  .ruleDetails {
-    padding-left: 1.25rem;
-  }
-}
-
-@media (max-width: 576px) {
   .section {
-    padding: 1.5rem 1rem;
-    margin-top: 1.75rem;
-    margin-bottom: 1.75rem;
-  }
-
-  .title {
-    font-size: 1.35rem;
-  }
-
-  .subtitle {
-    font-size: 0.825rem;
+    padding: 1.75rem 1.25rem;
   }
 }

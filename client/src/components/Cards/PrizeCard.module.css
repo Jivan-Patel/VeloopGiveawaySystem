@@ -2,37 +2,61 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  background: #0B0E17;
+  background: linear-gradient(180deg, rgba(20, 26, 23, 0.85) 0%, rgba(12, 16, 14, 0.95) 100%);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 1rem;
-  padding: 1rem;
-  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  border-radius: 1.25rem;
+  padding: 1.15rem;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
   overflow: hidden;
   height: 100%;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 20px var(--card-accent, rgba(139, 92, 246, 0.25));
+  transform: translateY(-6px);
+  border-color: rgba(255, 255, 255, 0.22);
+  box-shadow: 0 20px 42px -10px rgba(0, 0, 0, 0.7), 0 0 25px var(--card-accent, rgba(16, 185, 129, 0.25));
 }
 
 .topBar {
   display: flex;
-  justify-content: flex-start;
-  margin-bottom: 0.5rem;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.65rem;
   z-index: 2;
+  gap: 0.5rem;
 }
 
 .rankBadge {
   display: inline-block;
   font-size: 0.72rem;
-  font-weight: 700;
+  font-weight: 800;
   color: #FFFFFF;
-  padding: 0.25rem 0.65rem;
-  border-radius: 6px;
+  padding: 0.22rem 0.65rem;
+  border-radius: 9999px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.feeChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #34D399;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.32);
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
   letter-spacing: 0.02em;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.feeIcon {
+  color: #F59E0B;
 }
 
 .imageArea {
@@ -40,31 +64,51 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 145px;
+  height: 155px;
   margin-bottom: 0.75rem;
   z-index: 1;
 }
 
 .ambientGlow {
   position: absolute;
-  width: 110px;
-  height: 110px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   filter: blur(35px);
-  opacity: 0.35;
+  opacity: 0.32;
   pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.card:hover .ambientGlow {
+  opacity: 0.48;
+  transform: scale(1.15);
 }
 
 .productImage {
-  max-width: 90%;
-  max-height: 135px;
+  max-width: 92%;
+  max-height: 145px;
   object-fit: contain;
-  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.5));
-  transition: transform 0.3s ease;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.6));
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .card:hover .productImage {
-  transform: scale(1.05);
+  transform: scale(1.08) translateY(-2px);
+}
+
+.retailBadge {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #E2E8F0;
+  background: rgba(12, 16, 14, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 0.18rem 0.5rem;
+  border-radius: 6px;
+  backdrop-filter: blur(8px);
 }
 
 .body {
@@ -74,72 +118,120 @@
 }
 
 .title {
-  font-size: 1.05rem;
-  font-weight: 700;
+  font-size: 1.12rem;
+  font-weight: 800;
   color: #FFFFFF;
   margin: 0 0 0.25rem;
   line-height: 1.3;
 }
 
 .subtitle {
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   color: #94A3B8;
-  margin: 0 0 0.85rem;
+  margin: 0 0 0.75rem;
   line-height: 1.4;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
+/* Gamified Pool Progress Bar */
+.progressWrap {
+  margin-bottom: 0.75rem;
+}
+
+.progressHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #94A3B8;
+  margin-bottom: 0.3rem;
+}
+
+.progressLabel {
+  color: #94A3B8;
+}
+
+.progressVal {
+  color: #34D399;
+  font-weight: 700;
+}
+
+.progressBarBg {
+  height: 5px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.progressBarFill {
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 .metaRow {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.5rem 0;
+  padding: 0.55rem 0;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   margin-bottom: 0.85rem;
-  font-size: 0.75rem;
-  color: #94A3B8;
+  gap: 0.4rem;
 }
 
 .metaItem {
   display: flex;
   align-items: center;
   gap: 0.35rem;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: #CBD5E1;
 }
 
-.metaIcon {
-  color: #CBD5E1;
-  flex-shrink: 0;
+.metaIconGold {
+  color: #F5B83D;
+}
+
+.metaIconCyan {
+  color: #38BDF8;
+}
+
+.metaIconClock {
+  color: #A78BFA;
 }
 
 .joinButton {
-  display: inline-flex;
+  margin-top: auto;
+  display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.45rem;
-  width: 100%;
-  padding: 0.6rem 1rem;
-  border-radius: 8px;
+  padding: 0.68rem 1rem;
+  border-radius: 0.75rem;
   color: #FFFFFF;
-  font-size: 0.85rem;
-  font-weight: 700;
+  font-size: 0.88rem;
+  font-weight: 800;
   text-decoration: none;
-  border: none;
   cursor: pointer;
-  transition: opacity 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-  margin-top: auto;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+  transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;
 }
 
 .joinButton:hover {
-  opacity: 0.92;
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  filter: brightness(1.12);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
   color: #FFFFFF;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
 }
 
-.joinButton:active {
-  transform: translateY(0);
+.arrowIcon {
+  transition: transform 0.2s ease;
+}
+
+.card:hover .arrowIcon {
+  transform: translateX(3px);
 }

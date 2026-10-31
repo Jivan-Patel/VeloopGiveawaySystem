@@ -3,20 +3,46 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 2rem 0 1.5rem;
+  padding: 2.25rem 0 2rem;
   overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.ambientBackdrop {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 700px;
+  height: 260px;
+  background: radial-gradient(ellipse, rgba(16, 185, 129, 0.12) 0%, rgba(139, 92, 246, 0.05) 50%, transparent 75%);
+  filter: blur(50px);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .podiumWrapper {
+  position: relative;
   flex: 0 0 auto;
-  width: 170px;
+  width: 175px;
   max-width: 22%;
   display: flex;
   align-items: center;
   justify-content: center;
   pointer-events: none;
   user-select: none;
-  animation: subtleFloat 4s ease-in-out infinite;
+  animation: subtleFloat 4.5s ease-in-out infinite;
+  z-index: 1;
+}
+
+.podiumGlow {
+  position: absolute;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.28) 0%, transparent 70%);
+  filter: blur(25px);
+  pointer-events: none;
 }
 
 .podiumLeft {
@@ -25,14 +51,15 @@
 
 .podiumRight {
   transform: perspective(600px) rotateY(-8deg);
-  animation-delay: -2s;
+  animation-delay: -2.25s;
 }
 
 .podiumImage {
+  position: relative;
   width: 100%;
   height: auto;
   object-fit: contain;
-  filter: drop-shadow(0 15px 30px rgba(139, 92, 246, 0.35));
+  filter: drop-shadow(0 15px 35px rgba(124, 58, 237, 0.4));
 }
 
 .podiumMirrored {
@@ -40,6 +67,7 @@
 }
 
 .centerContent {
+  position: relative;
   flex: 1 1 auto;
   text-align: center;
   padding: 0 1rem;
@@ -49,55 +77,95 @@
 .exclusiveBadge {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.45rem 1.1rem;
+  gap: 0.55rem;
+  padding: 0.45rem 1.15rem;
   border-radius: 9999px;
-  background: rgba(30, 27, 75, 0.7);
-  border: 1px solid rgba(168, 85, 247, 0.45);
-  color: #E9D5FF;
-  font-size: 0.78rem;
-  font-weight: 700;
+  background: rgba(18, 23, 20, 0.85);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: #34D399;
+  font-size: 0.74rem;
+  font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  margin-bottom: 0.85rem;
-  box-shadow: 0 0 20px rgba(168, 85, 247, 0.2);
+  margin-bottom: 0.9rem;
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
 }
 
-.badgeIcon {
-  color: #C084FC;
+.badgeSparkle {
+  color: #F59E0B;
+  animation: pulseRotate 3s ease-in-out infinite;
+}
+
+.livePulseDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #10B981;
+  box-shadow: 0 0 8px #10B981;
+  animation: pulseGlow 2s infinite ease-in-out;
 }
 
 .mainTitle {
-  font-size: clamp(2rem, 4.5vw, 3.4rem);
+  font-size: clamp(2.1rem, 4.6vw, 3.6rem);
   font-weight: 800;
-  letter-spacing: -0.02em;
-  margin: 0 0 0.65rem;
-  background: linear-gradient(180deg, #FFFFFF 40%, #C084FC 100%);
+  letter-spacing: -0.025em;
+  margin: 0 0 0.75rem;
+  color: #FFFFFF;
+  line-height: 1.15;
+}
+
+.titleGradient {
+  background: linear-gradient(135deg, #34D399 0%, #10B981 50%, #F59E0B 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  line-height: 1.15;
+  filter: drop-shadow(0 2px 14px rgba(16, 185, 129, 0.3));
 }
 
 .subtitle {
   color: #94A3B8;
-  font-size: clamp(0.95rem, 1.6vw, 1.12rem);
+  font-size: clamp(0.92rem, 1.5vw, 1.08rem);
   max-width: 680px;
-  margin: 0 auto 0.6rem;
-  line-height: 1.5;
+  margin: 0 auto 1.15rem;
+  line-height: 1.55;
 }
 
-.sparkleRow {
+.guaranteeRow {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  color: #A855F7;
-  font-size: 0.9rem;
-  font-weight: 600;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  padding: 0.45rem 1.1rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.sparkleStar {
-  color: #C084FC;
-  font-size: 1rem;
+.guaranteeChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: #E2E8F0;
+}
+
+.chipIconGreen {
+  color: #34D399;
+}
+
+.chipIconCyan {
+  color: #38BDF8;
+}
+
+.chipIconGold {
+  color: #FBBF24;
+}
+
+.chipDot {
+  color: rgba(255, 255, 255, 0.2);
+  font-size: 0.75rem;
 }
 
 @keyframes subtleFloat {
@@ -105,7 +173,27 @@
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-8px);
+    transform: translateY(-9px);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(1.3);
+  }
+}
+
+@keyframes pulseRotate {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.15) rotate(15deg);
   }
 }
 
@@ -114,6 +202,30 @@
     display: none;
   }
   .sectionHeader {
-    padding: 1.25rem 0 1rem;
+    padding: 1.5rem 0 1rem;
+  }
+  .mainTitle {
+    font-size: clamp(1.65rem, 6vw, 2.25rem);
+    word-break: break-word;
+  }
+  .subtitle {
+    font-size: 0.88rem;
+  }
+  .guaranteeRow {
+    gap: 0.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .guaranteeRow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 1rem;
+    gap: 0.35rem;
+    padding: 0.6rem 1rem;
+  }
+  .chipDot {
+    display: none;
   }
 }
