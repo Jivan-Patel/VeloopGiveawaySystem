@@ -12,6 +12,9 @@ import ImportantInfoAccordion from '../components/Detail/ImportantInfoAccordion'
 import DetailFooter from '../components/Detail/DetailFooter';
 import DetailNotFound from '../components/Detail/DetailNotFound';
 import PrizeClaimModal from '../components/Claims/PrizeClaimModal';
+import ConfirmParticipationModal from '../components/Modals/ConfirmParticipationModal';
+import LoginRequiredModal from '../components/Modals/LoginRequiredModal';
+import { useAuth } from '../hooks/useAuth';
 import styles from './GiveawayDetail.module.css';
 
 /**
@@ -28,15 +31,19 @@ import styles from './GiveawayDetail.module.css';
  * - Terms & Conditions (10 topics, placeholders marked)
  * - Expandable Important Information accordion (Tax, Warranty, Unclaimed)
  * - Compact footer & Custom 404 state for unknown slugs
+ * - Modals: PrizeClaimModal, ConfirmParticipationModal, LoginRequiredModal
  */
 export function GiveawayDetail() {
   const { slug } = useParams();
+  const { user } = useAuth();
 
   const [giveaway, setGiveaway] = useState(null);
   const [userStatus, setUserStatus] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isClaimModalOpen, setIsClaimModalOpen] = useState(false);
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
   useEffect(() => {
     let ignore = false;
@@ -96,16 +103,29 @@ export function GiveawayDetail() {
     }
   };
 
-  const handleJoinSuccess = async () => {
-    if (giveaway?.giveawayId) {
-      try {
-        const statusRes = await giveawayApi.getMyStatus(giveaway.giveawayId);
-        setUserStatus(statusRes.data || null);
-      } catch {
-        setUserStatus({ isJoined: true });
-      }
-    }
+  const handleParticipationSuccess = (result) => {
+    // Immediate state synchronization
+    setUserStatus((prev) => ({
+      ...prev,
+      isJoined: true,
+      ticketId: result?.ticketId || (giveaway?.giveawayId ? giveaway.giveawayId.slice(-6).toUpperCase() : 'TKT-2026')
+    }));
+
+    // Update participant count
+    setGiveaway((prev) => (prev ? { ...prev, participantsCount: (prev.participantsCount || 0) + 1 } : prev));
   };
+
+  // Derive authoritative wallet balance matching giveaway entry currency
+  const entryCurrency = giveaway?.entry?.currency || 'VE';
+  const wallet = user?.wallet || { ves: 1250, sves: 800, tokens: 5000 };
+  let currentBalance = 0;
+  if (entryCurrency === 'SVE') {
+    currentBalance = wallet.sves ?? 0;
+  } else if (entryCurrency === 'TOKEN') {
+    currentBalance = wallet.tokens ?? 0;
+  } else {
+    currentBalance = wallet.ves ?? 0;
+  }
 
   if (loading) {
     return <ThemedLoader fullScreen={false} />;
@@ -151,7 +171,8 @@ export function GiveawayDetail() {
             <PrizeInfoCard
               giveaway={giveaway}
               userStatus={userStatus}
-              onJoinSuccess={handleJoinSuccess}
+              onOpenConfirmJoin={() => setIsConfirmModalOpen(true)}
+              onOpenLoginRequired={() => setIsLoginModalOpen(true)}
               onOpenClaim={() => setIsClaimModalOpen(true)}
             />
           </div>
@@ -166,6 +187,22 @@ export function GiveawayDetail() {
         isOpen={isClaimModalOpen}
         onClose={() => setIsClaimModalOpen(false)}
         prize={giveaway.prize}
+        giveawayTitle={giveaway.title}
+      />
+
+      {/* 5. Confirm Participation Modal */}
+      <ConfirmParticipationModal
+        isOpen={isConfirmModalOpen}
+        onClose={() => setIsConfirmModalOpen(false)}
+        giveaway={giveaway}
+        userBalance={currentBalance}
+        onParticipationSuccess={handleParticipationSuccess}
+      />
+
+      {/* 6. Login Required Modal for Unauthenticated Visitors */}
+      <LoginRequiredModal
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
         giveawayTitle={giveaway.title}
       />
     </div>

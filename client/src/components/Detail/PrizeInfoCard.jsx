@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Users, Trophy, ShieldCheck, CheckCircle, ArrowRight, Sparkles, Lock, Gift } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
@@ -15,10 +14,14 @@ import styles from './DetailCard.module.css';
  * - Integrated BalancePanel comparison
  * - Strict adherence to Section 5 CTA state matrix
  */
-export function PrizeInfoCard({ giveaway, userStatus, onJoinSuccess, onOpenClaim }) {
+export function PrizeInfoCard({
+  giveaway,
+  userStatus,
+  onOpenConfirmJoin,
+  onOpenLoginRequired,
+  onOpenClaim
+}) {
   const { user, isAuthenticated, userState } = useAuth();
-  const [isJoining, setIsJoining] = useState(false);
-  const [joinedLocal, setJoinedLocal] = useState(false);
 
   if (!giveaway) return null;
 
@@ -43,18 +46,9 @@ export function PrizeInfoCard({ giveaway, userStatus, onJoinSuccess, onOpenClaim
   }
 
   const isEnough = currentBalance >= entry.amount;
-  const isJoined = joinedLocal || userStatus?.isJoined || userState === USER_STATE.PARTICIPANT;
+  const isJoined = userStatus?.isJoined || userState === USER_STATE.PARTICIPANT;
   const isWinner = userState === USER_STATE.WINNER;
   const isNonWinner = userState === USER_STATE.NON_WINNER;
-
-  const handleJoinSimulation = () => {
-    setIsJoining(true);
-    setTimeout(() => {
-      setIsJoining(false);
-      setJoinedLocal(true);
-      if (onJoinSuccess) onJoinSuccess();
-    }, 1000);
-  };
 
   return (
     <div className={styles.infoCard}>
@@ -107,12 +101,16 @@ export function PrizeInfoCard({ giveaway, userStatus, onJoinSuccess, onOpenClaim
       {/* CTA Matrix Action Button (PRD Section 5) */}
       <div className={styles.actionWrap}>
         {!isAuthenticated ? (
-          /* Visitor State -> Login CTA */
-          <Link to="/login" className={styles.primaryBtnGradient}>
+          /* Visitor State -> Triggers LoginRequiredModal */
+          <button
+            type="button"
+            className={styles.primaryBtnGradient}
+            onClick={onOpenLoginRequired}
+          >
             <Lock size={16} />
             <span>Login to Participate</span>
             <ArrowRight size={15} />
-          </Link>
+          </button>
         ) : status === GIVEAWAY_STATUS.ENDED && winnersStatus === WINNERS_STATUS.FINALIZED ? (
           isWinner ? (
             /* Ended, User Won -> Claim Prize CTA */
@@ -153,29 +151,19 @@ export function PrizeInfoCard({ giveaway, userStatus, onJoinSuccess, onOpenClaim
             <div>
               <div className={styles.joinedTitle}>You're Participating ✓</div>
               <div className={styles.joinedSub}>
-                Ticket #{giveawayId.slice(-6).toUpperCase()} registered on ledger.
+                Ticket #{userStatus?.ticketId || giveawayId.slice(-6).toUpperCase()} registered on ledger.
               </div>
             </div>
           </div>
         ) : isEnough ? (
-          /* Logged in, not joined, enough balance */
+          /* Logged in, not joined, enough balance -> Open Confirmation Modal */
           <button
             type="button"
             className={styles.joinBtn}
-            onClick={handleJoinSimulation}
-            disabled={isJoining}
+            onClick={onOpenConfirmJoin}
           >
-            {isJoining ? (
-              <span className={styles.joiningSpinnerWrap}>
-                <span className={styles.spinner} />
-                <span>Submitting Entry…</span>
-              </span>
-            ) : (
-              <>
-                <span>Join for {formatCurrencyAmount(entry.amount, entry.currency)}</span>
-                <ArrowRight size={15} />
-              </>
-            )}
+            <span>Join for {formatCurrencyAmount(entry.amount, entry.currency)}</span>
+            <ArrowRight size={15} />
           </button>
         ) : (
           /* Logged in, balance short -> Earn More CTA */
