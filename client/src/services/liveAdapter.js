@@ -27,7 +27,7 @@ const request = async (endpoint, options = {}) => {
   if (!response.ok) {
     const error = new Error(data.message || data.error || 'Network response failed');
     error.status = response.status;
-    error.errorCode = data.errorCode || 'SERVER_ERROR';
+    error.errorCode = data.code || data.errorCode || 'SERVER_ERROR';
     error.data = data;
     throw error;
   }
@@ -37,31 +37,72 @@ const request = async (endpoint, options = {}) => {
 
 export const liveAdapter = {
   async getCurrentGiveaways() {
-    return request('/giveaways/current');
+    const res = await request('/giveaways/current');
+    return {
+      success: true,
+      data: {
+        giveaways: res.data.giveaways,
+        stats: res.data.stats,
+        serverTime: res.serverTime || new Date().toISOString()
+      }
+    };
   },
 
   async getPreviousGiveaways(page = 1, limit = 10) {
-    return request(`/giveaways/previous?page=${page}&limit=${limit}`);
+    const res = await request(`/giveaways/previous?page=${page}&limit=${limit}`);
+    return {
+      success: true,
+      data: {
+        giveaways: res.data.giveaways,
+        total: res.data.pagination?.total || res.data.giveaways.length,
+        page: res.data.pagination?.page || page,
+        totalPages: res.data.pagination?.pages || 1,
+        serverTime: new Date().toISOString()
+      }
+    };
   },
 
   async getPreviousWinners(limit = 10) {
-    return request(`/giveaways/previous/winners?limit=${limit}`);
+    const res = await request(`/giveaways/previous/winners?limit=${limit}`);
+    return {
+      success: true,
+      data: {
+        winners: res.data,
+        serverTime: new Date().toISOString()
+      }
+    };
   },
 
   async getGiveawayBySlug(slug) {
-    return request(`/giveaways/${slug}`);
+    const res = await request(`/giveaways/${slug}`);
+    return {
+      success: true,
+      data: res.data,
+      serverTime: res.serverTime
+    };
   },
 
   async getGiveawayWinners(giveawayId) {
-    return request(`/giveaways/${giveawayId}/winners`);
+    const res = await request(`/giveaways/${giveawayId}/winners`);
+    return {
+      success: true,
+      data: {
+        winners: res.data,
+        winnersStatus: res.winnersStatus
+      }
+    };
   },
 
   async getMyStatus(giveawayId) {
-    return request(`/giveaways/${giveawayId}/my-status`);
+    const res = await request(`/giveaways/${giveawayId}/my-status`);
+    return {
+      success: true,
+      data: res.data
+    };
   },
 
   async joinGiveaway(giveawayId, headers = {}) {
-    return request(`/giveaways/${giveawayId}/join`, {
+    const res = await request(`/giveaways/${giveawayId}/join`, {
       method: 'POST',
       headers: {
         'Idempotency-Key': headers['Idempotency-Key'] || crypto.randomUUID(),
@@ -69,16 +110,30 @@ export const liveAdapter = {
         ...headers
       }
     });
+    return {
+      success: true,
+      data: res.data
+    };
   },
 
   async claimPrize(giveawayId, claimData) {
-    return request(`/giveaways/${giveawayId}/claim`, {
+    const res = await request(`/giveaways/${giveawayId}/claim`, {
       method: 'POST',
       body: JSON.stringify(claimData)
     });
+    return {
+      success: true,
+      data: res.data
+    };
   },
 
   async getAuthUser() {
-    return request('/auth/me');
+    const res = await request('/auth/me');
+    return {
+      success: true,
+      data: res.data
+    };
   }
 };
+
+export default liveAdapter;
