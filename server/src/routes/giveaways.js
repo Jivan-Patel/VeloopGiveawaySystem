@@ -7,6 +7,7 @@ import { Wallet } from '../models/Wallet.js';
 import { PrizeClaim } from '../models/PrizeClaim.js';
 import { maskUserId, getEffectiveStatus } from '../utils/statusHelper.js';
 import { authMiddleware, optionalAuthMiddleware } from '../middleware/authMiddleware.js';
+import { joinGiveaway } from '../services/participationService.js';
 
 const router = Router();
 
@@ -318,6 +319,31 @@ router.get('/:idOrSlug', optionalAuthMiddleware, async (req, res, next) => {
         status: effStatus,
         prize: prize || null
       }
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
+/**
+ * POST /api/giveaways/:id/join
+ * Authenticated join with ACID transactions and idempotency deduplication.
+ */
+router.post('/:id/join', authMiddleware, async (req, res, next) => {
+  try {
+    const idempotencyKey = req.headers['idempotency-key'];
+    const deviceId = req.headers['x-device-id'] || req.ip;
+    const result = await joinGiveaway({
+      userId: req.user.userId,
+      giveawayIdentifier: req.params.id,
+      idempotencyKey,
+      deviceId,
+      ip: req.ip
+    });
+
+    res.status(result.statusCode).json({
+      status: 'success',
+      data: result.data
     });
   } catch (err) {
     next(err);
