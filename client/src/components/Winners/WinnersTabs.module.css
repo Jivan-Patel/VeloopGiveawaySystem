@@ -69,6 +69,7 @@
   justify-content: center;
   gap: 0.5rem;
   margin-bottom: 1.25rem;
+  flex-wrap: wrap;
 }
 
 .tabBtn {
@@ -195,21 +196,40 @@
 
 @media (max-width: 576px) {
   .section {
-    padding: 1.5rem 1rem;
-    margin-top: 1.75rem;
-    margin-bottom: 1.75rem;
+    padding: 1.25rem 0.85rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 1.15rem;
   }
 
   .title {
-    font-size: 1.35rem;
+    font-size: 1.3rem;
   }
 
   .subtitle {
     font-size: 0.825rem;
   }
 
+  .tabList {
+    gap: 0.4rem;
+  }
+
   .tabBtn {
-    padding: 0.45rem 0.85rem;
+    padding: 0.45rem 0.75rem;
     font-size: 0.775rem;
+    flex: 1 1 calc(50% - 0.4rem);
+    justify-content: center;
+  }
+
+  .liveNotice {
+    font-size: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 420px) {
+  .tabBtn {
+    flex: 1 1 100%;
   }
 }

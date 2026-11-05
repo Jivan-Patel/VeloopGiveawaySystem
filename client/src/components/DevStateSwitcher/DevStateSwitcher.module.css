@@ -189,3 +189,14 @@
   color: var(--color-text-muted);
   line-height: 1.35;
 }
+
+@media (max-width: 480px) {
+  .floatingWidget {
+    bottom: 12px;
+    right: 12px;
+  }
+  .toggleBtn {
+    padding: 0.38rem 0.75rem;
+    font-size: 0.75rem;
+  }
+}

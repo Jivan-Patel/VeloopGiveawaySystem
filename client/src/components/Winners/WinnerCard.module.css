@@ -152,3 +152,26 @@
 .calendarIcon {
   color: #94A3B8;
 }
+
+@media (max-width: 440px) {
+  .card {
+    padding: 1rem 0.95rem;
+    border-radius: 1rem;
+  }
+
+  .header {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .verifiedBadge {
+    font-size: 0.68rem;
+    padding: 0.18rem 0.5rem;
+    margin-left: auto;
+  }
+
+  .prizeSection {
+    padding: 0.75rem 0.85rem;
+    gap: 0.7rem;
+  }
+}

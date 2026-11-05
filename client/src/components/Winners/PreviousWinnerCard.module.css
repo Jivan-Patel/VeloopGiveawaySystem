@@ -114,3 +114,17 @@
   color: #64748B;
   flex-shrink: 0;
 }
+
+@media (max-width: 440px) {
+  .row {
+    padding: 0.75rem 0.85rem;
+    gap: 0.65rem;
+  }
+
+  .campaignBadge {
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

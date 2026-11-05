@@ -194,11 +194,18 @@
 @media (max-width: 480px) {
   .section {
     padding: 1.25rem 0.85rem;
+    border-radius: 1.15rem;
+  }
+  .title {
+    font-size: 1.3rem;
+  }
+  .subtitle {
+    font-size: 0.82rem;
   }
   .ruleCardHeader {
-    padding: 0.9rem 1rem;
+    padding: 0.85rem 0.95rem;
   }
   .ruleCardBody {
-    padding: 0 1rem 1rem 1rem;
+    padding: 0 0.95rem 0.95rem 0.95rem;
   }
 }

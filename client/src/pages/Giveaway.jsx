@@ -118,7 +118,7 @@ export function Giveaway() {
       {userState === USER_STATE.NON_WINNER && <NextGiveawayPreview />}
 
       {/* 6. Main Row: Left (Featured Prize Cards Grid) + Right (How to Participate Sidebar) */}
-      <div className="row g-4 mb-2">
+      <div className={`row g-3 g-lg-4 mb-2 ${styles.mainRow}`}>
         {/* Left Column: Featured Giveaways */}
         <div className="col-12 col-xl-9">
           <div className={styles.featuredSection}>

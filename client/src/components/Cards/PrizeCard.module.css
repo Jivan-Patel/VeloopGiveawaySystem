@@ -27,6 +27,7 @@
   margin-bottom: 0.65rem;
   z-index: 2;
   gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
 .rankBadge {
@@ -39,6 +40,7 @@
   letter-spacing: 0.03em;
   text-transform: uppercase;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  white-space: nowrap;
 }
 
 .feeChip {
@@ -53,6 +55,7 @@
   padding: 0.2rem 0.6rem;
   border-radius: 9999px;
   letter-spacing: 0.02em;
+  white-space: nowrap;
 }
 
 .feeIcon {
@@ -130,9 +133,10 @@
   color: #94A3B8;
   margin: 0 0 0.75rem;
   line-height: 1.4;
-  white-space: nowrap;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 /* Gamified Pool Progress Bar */
@@ -181,6 +185,8 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   margin-bottom: 0.85rem;
   gap: 0.4rem;
+  flex-wrap: wrap;
+  row-gap: 0.35rem;
 }
 
 .metaItem {
@@ -190,6 +196,7 @@
   font-size: 0.74rem;
   font-weight: 600;
   color: #CBD5E1;
+  white-space: nowrap;
 }
 
 .metaIconGold {
@@ -234,4 +241,33 @@
 
 .card:hover .arrowIcon {
   transform: translateX(3px);
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 1rem 0.9rem;
+    border-radius: 1rem;
+  }
+
+  .imageArea {
+    height: 140px;
+  }
+
+  .productImage {
+    max-height: 130px;
+  }
+
+  .title {
+    font-size: 1.05rem;
+  }
+
+  .metaRow {
+    padding: 0.45rem 0;
+    font-size: 0.72rem;
+  }
+
+  .joinButton {
+    padding: 0.62rem 0.85rem;
+    font-size: 0.85rem;
+  }
 }
