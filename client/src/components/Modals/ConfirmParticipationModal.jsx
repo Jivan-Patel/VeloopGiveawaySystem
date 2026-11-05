@@ -125,7 +125,7 @@ export function ConfirmParticipationModal({
         onParticipationSuccess({ ...data, ticketId: newTicketId });
       }
     } catch (err) {
-      const code = err.response?.data?.errorCode || 'DEFAULT';
+      const code = err.errorCode || err.code || err.data?.code || err.response?.data?.errorCode || 'DEFAULT';
       const needed = err.response?.data?.needed || (fee - userBalance);
       setErrorMessage(getErrorMessage(code, { n: needed, currency }));
     } finally {
