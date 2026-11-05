@@ -7,6 +7,7 @@ import { GiveawayEntryTransaction } from '../models/GiveawayEntryTransaction.js'
 import { IdempotencyKey } from '../models/IdempotencyKey.js';
 import { AuditLog } from '../models/AuditLog.js';
 import { getEffectiveStatus } from '../utils/statusHelper.js';
+import { computeDeviceHash, evaluateRisk } from './fraudService.js';
 
 const CURRENCY_FIELD_MAP = {
   VE: 'ves',
@@ -30,7 +31,15 @@ const CURRENCY_FIELD_MAP = {
  *    f. Save Idempotency record
  *    g. Commit. Duplicate key error auto-aborts and maps to ALREADY_PARTICIPATING.
  */
-export async function joinGiveaway({ userId, giveawayIdentifier, idempotencyKey, deviceId = 'unknown', ip = '127.0.0.1' }) {
+export async function joinGiveaway({
+  userId,
+  giveawayIdentifier,
+  idempotencyKey,
+  deviceId = 'unknown',
+  userAgent = '',
+  hasTamperedFields = false,
+  ip = '127.0.0.1'
+}) {
   if (!userId) {
     const err = new Error('Please login to participate.');
     err.statusCode = 401;
@@ -87,7 +96,23 @@ export async function joinGiveaway({ userId, giveawayIdentifier, idempotencyKey,
     throw err;
   }
 
-  // 5. Derive currency and fee STRICTLY from Giveaway document (ignore any client tampering)
+  // 5. Fraud risk scoring & device check
+  const deviceHash = computeDeviceHash(deviceId, userAgent);
+  const risk = await evaluateRisk({
+    userId,
+    giveawayId: giveaway.giveawayId,
+    deviceHash,
+    hasTamperedFields
+  });
+
+  if (risk.isBlocked) {
+    const err = new Error("Participation couldn't be completed. Try later or contact support.");
+    err.statusCode = 403;
+    err.code = 'PARTICIPATION_BLOCKED';
+    throw err;
+  }
+
+  // 6. Derive currency and fee STRICTLY from Giveaway document (ignore any client tampering)
   const currency = giveaway.entry.currency;
   const fee = giveaway.entry.amount;
   const walletField = CURRENCY_FIELD_MAP[currency];
@@ -137,9 +162,9 @@ export async function joinGiveaway({ userId, giveawayIdentifier, idempotencyKey,
           prizeId: giveaway.prizeId,
           entryCurrency: currency,
           entryAmount: fee,
-          deviceHash: deviceId,
+          deviceHash: deviceHash || deviceId,
           status: 'ACTIVE',
-          riskScore: 0,
+          riskScore: risk.riskScore,
           transactionId,
           joinedAt: serverTime
         }

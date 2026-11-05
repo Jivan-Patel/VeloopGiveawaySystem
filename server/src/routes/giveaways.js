@@ -333,11 +333,18 @@ router.post('/:id/join', authMiddleware, async (req, res, next) => {
   try {
     const idempotencyKey = req.headers['idempotency-key'];
     const deviceId = req.headers['x-device-id'] || req.ip;
+    const userAgent = req.headers['user-agent'] || '';
+    const hasTamperedFields = Boolean(
+      req.body && (req.body.amount || req.body.currency || req.body.userId || req.body.prizeId)
+    );
+
     const result = await joinGiveaway({
       userId: req.user.userId,
       giveawayIdentifier: req.params.id,
       idempotencyKey,
       deviceId,
+      userAgent,
+      hasTamperedFields,
       ip: req.ip
     });
 
