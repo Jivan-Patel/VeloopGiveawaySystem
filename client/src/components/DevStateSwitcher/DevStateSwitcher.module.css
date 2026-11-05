@@ -32,7 +32,7 @@
   position: absolute;
   bottom: 50px;
   right: 0;
-  width: 340px;
+  width: min(340px, calc(100vw - 32px));
   max-height: 85vh;
   background: rgba(15, 20, 18, 0.97);
   backdrop-filter: blur(18px);

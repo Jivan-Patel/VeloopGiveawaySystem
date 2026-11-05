@@ -1,0 +1,206 @@
+.authPage {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.ambientOrb {
+  position: absolute;
+  width: 450px;
+  height: 450px;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(80px);
+  z-index: 0;
+}
+
+.ambientOrbEmerald {
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.14) 0%, transparent 70%);
+}
+
+.authCard {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 440px;
+  background: rgba(14, 20, 16, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: var(--radius-xl, 18px);
+  padding: clamp(1.4rem, 5vw, 2.5rem);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(16, 185, 129, 0.06);
+}
+
+.headerBlock {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.iconCircle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #34D399;
+  margin-bottom: 1rem;
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
+}
+
+.iconCircleGold {
+  background: rgba(245, 184, 61, 0.12);
+  border-color: rgba(245, 184, 61, 0.3);
+  color: var(--color-gold, #F5B83D);
+  box-shadow: 0 0 20px rgba(245, 184, 61, 0.2);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 4vw, 1.85rem);
+  font-weight: 800;
+  color: #FFFFFF;
+  margin-bottom: 0.45rem;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 0.88rem;
+  color: #94A3B8;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #CBD5E1;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.input {
+  width: 100%;
+  min-height: 48px;
+  padding: 0.75rem 1rem;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md, 10px);
+  color: #FFFFFF;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.input:focus {
+  border-color: #34D399;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25);
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.input::placeholder {
+  color: #64748B;
+}
+
+.submitBtn {
+  min-height: 48px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-primary-dark) 100%);
+  border: 1px solid var(--color-primary-border);
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border-radius: var(--radius-md, 10px);
+  cursor: pointer;
+  margin-top: 0.5rem;
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35);
+  transition: all 0.2s ease;
+}
+
+.submitBtn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.5);
+}
+
+.submitBtn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.submitBtnGold {
+  background: linear-gradient(135deg, #FDE68A 0%, var(--color-gold) 60%, #B45309 100%);
+  border-color: #FDE68A;
+  color: #171101;
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.35);
+}
+
+.submitBtnGold:hover:not(:disabled) {
+  box-shadow: 0 8px 25px rgba(245, 158, 11, 0.5);
+}
+
+.footerRow {
+  text-align: center;
+  margin-top: 1.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  font-size: 0.88rem;
+  color: #64748B;
+}
+
+.footerLink {
+  color: #34D399;
+  font-weight: 700;
+  text-decoration: none;
+  margin-left: 0.35rem;
+}
+
+.footerLink:hover {
+  text-decoration: underline;
+}
+
+.footerLinkGold {
+  color: var(--color-gold, #F5B83D);
+}
+
+@media (max-width: 480px) {
+  .authPage {
+    padding: 1.5rem 0.75rem;
+  }
+  .authCard {
+    border-radius: 14px;
+    padding: 1.5rem 1.15rem;
+  }
+  .headerBlock {
+    margin-bottom: 1.5rem;
+  }
+  .iconCircle {
+    width: 48px;
+    height: 48px;
+  }
+}

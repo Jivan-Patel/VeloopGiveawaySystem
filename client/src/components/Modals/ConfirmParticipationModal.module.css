@@ -503,3 +503,29 @@
   color: #10B981;
   flex-shrink: 0;
 }
+
+@media (max-width: 480px) {
+  .backdrop {
+    padding: 0.5rem;
+  }
+  .modal {
+    border-radius: 14px;
+    max-height: 94vh;
+    overflow-y: auto;
+  }
+  .modalHeader {
+    padding: 0.85rem 1rem;
+  }
+  .modalBody {
+    padding: 1rem;
+  }
+  .actionRow {
+    flex-direction: column-reverse;
+    gap: 0.5rem;
+  }
+  .cancelBtn,
+  .confirmBtn {
+    width: 100%;
+    justify-content: center;
+  }
+}

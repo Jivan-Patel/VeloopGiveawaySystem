@@ -53,12 +53,13 @@ export function GiveawayDetail() {
       setError(null);
       try {
         const res = await giveawayApi.getGiveawayBySlug(slug);
-        if (!ignore && res.data?.giveaway) {
-          setGiveaway(res.data.giveaway);
+        const giveawayItem = res.data?.giveaway || (res.data?.slug ? res.data : null);
+        if (!ignore && giveawayItem) {
+          setGiveaway(giveawayItem);
 
-          if (res.data.giveaway.giveawayId) {
+          if (giveawayItem.giveawayId) {
             try {
-              const statusRes = await giveawayApi.getMyStatus(res.data.giveaway.giveawayId);
+              const statusRes = await giveawayApi.getMyStatus(giveawayItem.giveawayId);
               if (!ignore) {
                 setUserStatus(statusRes.data || null);
               }
@@ -91,10 +92,11 @@ export function GiveawayDetail() {
   const reloadData = async () => {
     try {
       const res = await giveawayApi.getGiveawayBySlug(slug);
-      if (res.data?.giveaway) {
-        setGiveaway(res.data.giveaway);
-        if (res.data.giveaway.giveawayId) {
-          const statusRes = await giveawayApi.getMyStatus(res.data.giveaway.giveawayId);
+      const giveawayItem = res.data?.giveaway || (res.data?.slug ? res.data : null);
+      if (giveawayItem) {
+        setGiveaway(giveawayItem);
+        if (giveawayItem.giveawayId) {
+          const statusRes = await giveawayApi.getMyStatus(giveawayItem.giveawayId);
           setUserStatus(statusRes.data || null);
         }
       }

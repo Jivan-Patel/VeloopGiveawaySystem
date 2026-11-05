@@ -2,42 +2,55 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { UserPlus } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
+import styles from './Auth.module.css';
 
 export function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setError(null);
     try {
       await login(email, password);
       navigate('/giveaway');
+    } catch (err) {
+      setError(err.message || 'Account creation failed. Please try again.');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="container py-5 d-flex justify-content-center align-items-center" style={{ minHeight: '60vh' }}>
-      <div className="card bg-surface border-subtle p-4 p-md-5 shadow-lg" style={{ maxWidth: '440px', width: '100%' }}>
-        <div className="text-center mb-4">
-          <div className="d-inline-flex p-3 rounded-circle bg-surface-elevated text-gold mb-2">
-            <UserPlus size={28} />
+    <div className={styles.authPage}>
+      <div className={`${styles.ambientOrb} ${styles.ambientOrbEmerald}`} />
+
+      <div className={styles.authCard}>
+        <div className={styles.headerBlock}>
+          <div className={`${styles.iconCircle} ${styles.iconCircleGold}`}>
+            <UserPlus size={26} />
           </div>
-          <h1 className="h3 fw-bold text-white">Create Account</h1>
-          <p className="small text-secondary-custom">Join VELOOP Rewards and start collecting entries</p>
+          <h1 className={styles.title}>Create Account</h1>
+          <p className={styles.subtitle}>Join VELOOP Rewards and start collecting entries</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="d-flex flex-column gap-3">
-          <div>
-            <label className="form-label small text-secondary-custom">Email Address</label>
+        {error && (
+          <div className="alert alert-danger py-2 px-3 small rounded-3 mb-3" role="alert">
+            {error}
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} className={styles.form}>
+          <div className={styles.inputGroup}>
+            <label className={styles.label}>Email Address</label>
             <input
               type="email"
-              className="form-control bg-surface-elevated text-white border-subtle"
+              className={styles.input}
               value={email}
               placeholder="you@domain.com"
               onChange={(e) => setEmail(e.target.value)}
@@ -45,26 +58,28 @@ export function SignUp() {
             />
           </div>
 
-          <div>
-            <label className="form-label small text-secondary-custom">Password</label>
+          <div className={styles.inputGroup}>
+            <label className={styles.label}>Password</label>
             <input
               type="password"
-              className="form-control bg-surface-elevated text-white border-subtle"
+              className={styles.input}
               value={password}
-              placeholder="Create a strong password"
+              placeholder="Create a strong password (min 8 chars)"
               onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
 
-          <button type="submit" disabled={loading} className="btn btn-gold-gradient py-2 fw-bold mt-2">
+          <button type="submit" disabled={loading} className={`${styles.submitBtn} ${styles.submitBtnGold}`}>
             {loading ? 'Creating Account…' : 'Register & Get 1,000 VE'}
           </button>
         </form>
 
-        <div className="text-center mt-4 pt-3 border-top border-subtle">
-          <span className="small text-muted-custom">Already have an account? </span>
-          <Link to="/login" className="small text-gold fw-bold">Sign In</Link>
+        <div className={styles.footerRow}>
+          <span>Already have an account?</span>
+          <Link to="/login" className={`${styles.footerLink} ${styles.footerLinkGold}`}>
+            Sign In
+          </Link>
         </div>
       </div>
     </div>
