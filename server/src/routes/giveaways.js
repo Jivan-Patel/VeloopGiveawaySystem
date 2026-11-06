@@ -8,6 +8,7 @@ import { PrizeClaim } from '../models/PrizeClaim.js';
 import { maskUserId, getEffectiveStatus } from '../utils/statusHelper.js';
 import { authMiddleware, optionalAuthMiddleware } from '../middleware/authMiddleware.js';
 import { joinGiveaway } from '../services/participationService.js';
+import { submitClaim } from '../services/claimService.js';
 
 const router = Router();
 
@@ -351,6 +352,22 @@ router.post('/:id/join', authMiddleware, async (req, res, next) => {
     res.status(result.statusCode).json({
       status: 'success',
       data: result.data
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
+/**
+ * POST /api/giveaways/:id/claim
+ * Authenticated prize claim processing with 7-day validation window.
+ */
+router.post('/:id/claim', authMiddleware, async (req, res, next) => {
+  try {
+    const result = await submitClaim(req.user.userId, req.params.id, req.body);
+    res.status(201).json({
+      status: 'success',
+      data: result
     });
   } catch (err) {
     next(err);
