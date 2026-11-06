@@ -5,6 +5,7 @@ import rateLimit from 'express-rate-limit';
 import mongoSanitize from 'mongo-sanitize';
 import authRoutes from './routes/auth.js';
 import giveawayRoutes from './routes/giveaways.js';
+import adminRoutes from './routes/admin.js';
 import { errorHandler } from './middleware/errorHandler.js';
 
 const app = express();
@@ -58,6 +59,7 @@ app.get('/api/health', (req, res) => {
 // Mount domain routes
 app.use('/api/auth', authRoutes);
 app.use('/api/giveaways', giveawayRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Centralized error handling
 app.use(errorHandler);
