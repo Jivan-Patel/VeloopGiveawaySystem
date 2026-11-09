@@ -115,6 +115,17 @@ export async function login({ email, password }) {
 }
 
 /**
+ * Issues signed JWT token for a user.
+ */
+export function generateToken(user) {
+  return jwt.sign(
+    { userId: user.userId, email: user.email, role: user.role },
+    JWT_SECRET,
+    { expiresIn: JWT_EXPIRES_IN }
+  );
+}
+
+/**
  * Validates a JWT string and returns the decoded payload.
  */
 export function verifyToken(token) {
