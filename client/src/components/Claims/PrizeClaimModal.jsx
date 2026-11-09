@@ -145,17 +145,20 @@ export function PrizeClaimModal({ isOpen, onClose, prize, giveawayTitle }) {
       return;
     }
 
-    // Trigger submission simulation
+    // Trigger submission
     setIsSubmittingInternal(true);
     setClaimStatus('SUBMITTING');
 
-    setTimeout(() => {
+    setTimeout(async () => {
+      await submitClaim(
+        {
+          prizeName: displayPrizeTitle,
+          prizeType: effectivePrizeType,
+          ...formData
+        },
+        prize?.giveawayId || 'gw-summer-2026'
+      );
       setIsSubmittingInternal(false);
-      submitClaim({
-        prizeName: displayPrizeTitle,
-        prizeType: effectivePrizeType,
-        ...formData
-      });
     }, 1200);
   };
 

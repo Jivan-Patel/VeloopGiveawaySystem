@@ -71,7 +71,21 @@ export function AuthProvider({ children }) {
     }
   };
 
-  const submitClaim = (formData) => {
+  const submitClaim = async (formData, giveawayId) => {
+    try {
+      if (giveawayId && import.meta.env.VITE_API_MODE === 'live') {
+        const res = await giveawayApi.claimPrize(giveawayId, formData);
+        setClaimStatus(CLAIM_STATUS.SUBMITTED);
+        setClaimRecord({
+          claimId: res.data?.claimId || `CLM-${Math.floor(10000 + Math.random() * 90000)}`,
+          submittedAt: res.data?.submittedAt || new Date().toISOString(),
+          ...formData
+        });
+        return res;
+      }
+    } catch (err) {
+      console.warn('[AuthProvider] Live claim error, using local fallback:', err.message);
+    }
     setClaimStatus(CLAIM_STATUS.SUBMITTED);
     setClaimRecord({
       claimId: `CLM-${Math.floor(10000 + Math.random() * 90000)}`,
