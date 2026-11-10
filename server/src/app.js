@@ -3,6 +3,7 @@ import helmet from 'helmet';
 import cors from 'cors';
 import rateLimit from 'express-rate-limit';
 import mongoSanitize from 'mongo-sanitize';
+import mongoose from 'mongoose';
 import authRoutes from './routes/auth.js';
 import giveawayRoutes from './routes/giveaways.js';
 import adminRoutes from './routes/admin.js';
@@ -40,20 +41,24 @@ const limiter = rateLimit({
 app.use('/api', limiter);
 
 // Health check endpoints
+const getHealthPayload = () => ({
+  status: 'ok',
+  service: 'veloop-giveaway-api',
+  version: '1.0.0',
+  uptimeSeconds: Math.floor(process.uptime()),
+  timestamp: new Date().toISOString(),
+  database: {
+    status: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
+    readyState: mongoose.connection.readyState
+  }
+});
+
 app.get('/health', (req, res) => {
-  res.status(200).json({
-    status: 'ok',
-    service: 'veloop-giveaway-api',
-    timestamp: new Date().toISOString()
-  });
+  res.status(200).json(getHealthPayload());
 });
 
 app.get('/api/health', (req, res) => {
-  res.status(200).json({
-    status: 'ok',
-    service: 'veloop-giveaway-api',
-    serverTime: new Date().toISOString()
-  });
+  res.status(200).json(getHealthPayload());
 });
 
 // Mount domain routes
