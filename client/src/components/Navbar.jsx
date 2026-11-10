@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import { Gift, Zap, Award, LogIn, LogOut, User, Menu, X } from 'lucide-react';
+import { Gift, Zap, Award, LogIn, LogOut, User, Menu, X, Shield } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import styles from './Navbar.module.css';
 
@@ -42,6 +42,16 @@ export function Navbar() {
                 Earn Entries
               </NavLink>
             </li>
+            {(user?.role === 'ADMIN' || user?.userId === 'VE10025') && (
+              <li>
+                <NavLink
+                  to="/admin"
+                  className={({ isActive }) => (isActive ? `${styles.navLink} ${styles.navLinkActive}` : styles.navLink)}
+                >
+                  Admin
+                </NavLink>
+              </li>
+            )}
           </ul>
         </nav>
 
@@ -119,6 +129,18 @@ export function Navbar() {
                 <span>Earn Entries</span>
               </NavLink>
             </li>
+            {(user?.role === 'ADMIN' || user?.userId === 'VE10025') && (
+              <li>
+                <NavLink
+                  to="/admin"
+                  onClick={closeMenu}
+                  className={location.pathname === '/admin' ? `${styles.mobileNavLink} ${styles.mobileNavLinkActive}` : styles.mobileNavLink}
+                >
+                  <Shield size={16} />
+                  <span>Admin Console</span>
+                </NavLink>
+              </li>
+            )}
           </ul>
 
           {isAuthenticated && user?.wallet && (

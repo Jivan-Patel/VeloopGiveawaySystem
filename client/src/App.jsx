@@ -8,6 +8,7 @@ import GiveawayDetail from './pages/GiveawayDetail';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import Earn from './pages/Earn';
+import Admin from './pages/Admin';
 import NotFound from './pages/NotFound';
 import './App.css';
 
@@ -25,6 +26,7 @@ export function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/earn" element={<Earn />} />
+              <Route path="/admin" element={<Admin />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>

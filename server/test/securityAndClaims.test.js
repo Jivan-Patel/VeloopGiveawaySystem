@@ -6,10 +6,8 @@ import { User } from '../src/models/User.js';
 import { Wallet } from '../src/models/Wallet.js';
 import { Prize } from '../src/models/Prize.js';
 import { Giveaway } from '../src/models/Giveaway.js';
-import { GiveawayParticipation } from '../src/models/GiveawayParticipation.js';
 import { GiveawayWinner } from '../src/models/GiveawayWinner.js';
 import { generateToken } from '../src/services/authService.js';
-import { finalizeGiveaway } from '../src/services/winnerService.js';
 
 async function runSecurityTests() {
   console.log('[Security Test] Initializing in-memory replica set and test environment...');
@@ -88,7 +86,7 @@ async function runSecurityTests() {
 
     // --- TEST 2: Payload Tampering Rejection ---
     console.log('[Test 2] Testing tamper resistance (attempting body override fee: 0)...');
-    const tamperRes = await request(app)
+    await request(app)
       .post(`/api/giveaways/${giveawayId}/join`)
       .set('Authorization', `Bearer ${tokenA}`)
       .set('Idempotency-Key', 'idem-tamper-01')
@@ -132,7 +130,6 @@ async function runSecurityTests() {
 
     // --- TEST 5: Non-Winner Claim Rejection ---
     console.log('[Test 5] Non-winner attempts to claim prize...');
-    const nonWinnerUser = winnerData.userId === userA.userId ? userB : userA;
     const nonWinnerToken = winnerData.userId === userA.userId ? tokenB : tokenA;
 
     const nonWinnerClaimRes = await request(app)
