@@ -1,5 +1,9 @@
 # VELOOP Giveaway & Rewards System
 
+[![Production Release](https://img.shields.io/badge/Release-v1.0.0-emerald.svg)](https://github.com/Jivan-Patel/VeloopGiveawaySystem/releases/tag/v1.0.0)
+[![PRD Compliance](https://img.shields.io/badge/PRD%20Compliance-75%2F75%20Verified-brightgreen.svg)](docs/PRD_CHECKLIST.md)
+[![Quality Gate](https://img.shields.io/badge/Oxlint-0%20Warnings-blue.svg)](docs/PRD_CHECKLIST.md)
+
 A high-integrity, backend-authoritative reward and giveaway platform engineered for VELOOP. Built with race-condition-proof entry pipelines, atomic integer ledger tracking, server-driven countdown verification, privacy-preserving masked winner IDs, uniform cryptographic winner selection, and zero casino mechanics.
 
 ---
