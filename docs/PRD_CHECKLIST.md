@@ -18,21 +18,21 @@ This document represents the formal compliance audit and production sign-off for
 
 | # | PRD Requirement Description | Implementation Reference | Status |
 | :-: | :--- | :--- | :-: |
-| 1 | Luxury dark theme color palette (Obsidian `#0B0E0D`, Jade `#10B981`, Gold `#F5B83D`, Titanium `#E2E8F0`) | `client/src/index.css` | Verified |
+| 1 | Luxury dark theme color palette (Cyber-Violet `#8B5CF6`, Neon Pink `#EC4899`, Emerald `#10B981`, Obsidian `#0D0F18`) | `client/src/styles/variables.css` | Verified |
 | 2 | CSS Modules architecture for strict style scoping and zero CSS contamination | `client/src/components/**/*.module.css` | Verified |
 | 3 | Deep Bootstrap 5 and React-Bootstrap overrides using standard design tokens | `client/src/index.css` | Verified |
 | 4 | Strictly zero casino, lottery, or gambling visual mechanics (no spinning wheels, slot reels, coin rain) | All UI components | Verified |
 | 5 | Accessible high-contrast typography hierarchy using Inter and system font stacks | `client/src/index.css` | Verified |
 | 6 | Navigation bar with dynamic brand logo, navigation links, and mobile drawer | `client/src/components/Navbar.jsx` | Verified |
 | 7 | Real-time wallet balance chips (VE and SVE) with live value formatting | `client/src/components/Navbar.jsx` | Verified |
-| 8 | Responsive Announcement Banner with contextual trust guarantees and badges | `client/src/components/Banner/GiveawayBanner.jsx` | Verified |
-| 9 | High-impact Giveaway Hero with restrained background motion effects | `client/src/components/Hero/GiveawayHero.jsx` | Verified |
-| 10 | Real-time platform statistics strip with 1-second dynamic state tick | `client/src/components/Stats/GiveawayStats.jsx` | Verified |
-| 11 | Featured Giveaways carousel with status tabs (`All`, `Live Now`, `Upcoming`, `Past Draws`) | `client/src/components/Featured/FeaturedGiveaways.jsx` | Verified |
-| 12 | Standardized Prize Cards with category accent chips, entry fees, and status badges | `client/src/components/Cards/PrizeCard.jsx` | Verified |
+| 8 | High-impact Giveaway Header with 3D flanking isometric gift boxes, glowing pedestals, and confetti strictly following Ref_02.jpeg | `client/src/components/SectionHeader/SectionHeader.jsx` | Verified |
+| 9 | 4-column horizontal Gaming HUD statistics command bar (Total Giveaways, Participants, Prizes Won, Ends In countdown) | `client/src/components/Stats/GiveawayStats.jsx` | Verified |
+| 10 | Sleek 48px rotating social proof winner announcement slider with live 4-second cycling and pause-on-hover | `client/src/components/Winners/WinnerAnnouncementBar.jsx` | Verified |
+| 11 | Main 75% / 25% split grid layout matching Ref_02.jpeg (4 side-by-side featured cards + 4-step vertical participation rail) | `client/src/pages/Giveaway.jsx` | Verified |
+| 12 | Standardized Prize Cards with tier badges (1st Prize, 2nd Prize, 3rd Prize, Lucky Draw), 3D auras, and "Join Now" CTAs | `client/src/components/Cards/PrizeCard.jsx` | Verified |
 | 13 | Synchronized countdown timer with zero-second transition and expired callback | `client/src/components/Countdown/Countdown.jsx` | Verified |
-| 14 | Responsive 4-step "How It Works" user journey timeline with illuminated markers | `client/src/components/ParticipateTimeline/` | Verified |
-| 15 | Trust Badges section displaying platform integrity, security, and fairness guarantees | `client/src/components/Trust/TrustBadges.jsx` | Verified |
+| 14 | Responsive 4-step "How to Participate" user journey rail with glowing numbered badges and "View Rules" action trigger | `client/src/components/ParticipateTimeline/` | Verified |
+| 15 | Horizontal Trust Badges bar displaying 4 pillars (100% Fair, Secure & Safe, 10K+ Trusted, 24/7 Support) | `client/src/components/Trust/TrustBadges.jsx` | Verified |
 
 ---
 
@@ -40,10 +40,10 @@ This document represents the formal compliance audit and production sign-off for
 
 | # | PRD Requirement Description | Implementation Reference | Status |
 | :-: | :--- | :--- | :-: |
-| 16 | Recent Winners Slider with masked user IDs (`VE****25`) preserving user privacy | `client/src/components/Winners/WinnerCard.jsx` | Verified |
-| 17 | Categorized Winners Tabs (`All Prizes`, `Tech & Gadgets`, `Luxury Hardware`) | `client/src/components/Winners/WinnersTabs.jsx` | Verified |
-| 18 | Interactive Giveaway Rules panel covering 7 mandatory compliance topics | `client/src/components/Rules/GiveawayRules.jsx` | Verified |
-| 19 | Accessible FAQ Accordion featuring 7 verified platform questions and answers | `client/src/components/FAQ/FAQAccordion.jsx` | Verified |
+| 16 | Dedicated Past Winners Modal displaying verified winners with masked user IDs (`VE****42`) preserving privacy | `client/src/components/Winners/PastWinnersModal.jsx` | Verified |
+| 17 | Categorized Winners Tabs (`All Prizes`, `Tech & Gadgets`, `Luxury Hardware`) inside modal | `client/src/components/Winners/PastWinnersModal.jsx` | Verified |
+| 18 | Interactive Rules Modal covering 7 mandatory compliance topics, eliminating main page text clutter | `client/src/components/Rules/RulesModal.jsx` | Verified |
+| 19 | Accessible FAQ Accordion featuring 7 verified platform questions packaged inside the Rules Modal | `client/src/components/Rules/RulesModal.jsx` | Verified |
 | 20 | Complete compliance footer with legal terms, privacy links, and cryptographic badge | `client/src/components/Footer.jsx` | Verified |
 | 21 | High-resolution, copyright-free photography for all featured hardware prizes | `client/src/data/giveawayData.js` | Verified |
 | 22 | Loading skeleton primitives preventing cumulative layout shift (CLS) | `client/src/components/Skeleton/` | Verified |

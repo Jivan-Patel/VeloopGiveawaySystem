@@ -214,6 +214,16 @@ npm --prefix server test
 
 ## 7. QA Showcase & 11 Visual Demo States
 
+### 7.1 Visual Design Reference Architecture (`Ref_02.jpeg`)
+The primary Giveaway page (`/giveaway`) has been designed and implemented in strict adherence to visual reference `Ref_02.jpeg`:
+- **Hero & Header:** Centered luminous pink/purple gradient typography (`Giveaway Section`), exclusive badge capsule, and flanking 3D isometric gift boxes atop glowing pedestals with celebration confetti.
+- **Horizontal Gaming HUD:** 4-column real-time statistics command bar featuring Total Giveaways, Total Participants, Prizes Won, and Ends In countdown timer.
+- **Winner Announcement Slider:** Sleek 48px social proof ticker auto-rotating verified past winners with masked IDs (`VE****42`), with an instant trigger opening the full **Past Winners Modal**.
+- **75% / 25% Split Grid:** 4 side-by-side featured prize cards (1st Prize iPhone 15 Pro, 2nd Prize Apple Watch, 3rd Prize AirPods Pro, Lucky Draw Amazon Voucher) with 3D floating aura effects, flanked by a 4-step vertical participation journey rail.
+- **Decluttered Modal Architecture:** Rules and FAQs are cleanly encapsulated inside the accessible **Rules & Guidelines Modal**, completely eliminating page clutter while preserving all 7 compliance topics and 7 verified platform questions.
+- **Trust Badges:** 4-pillar horizontal security footer (100% Fair & Transparent, Secure & Safe, 10K+ Trusted Users, 24/7 Support).
+
+### 7.2 11 Visual Presentation States
 The platform features an embedded **Dev State Switcher** widget (visible in development or by appending `?demo=1` to any URL) that enables instant switching between all 11 PRD visual presentation states:
 
 | State # | Presentation State | Trigger / Description |
