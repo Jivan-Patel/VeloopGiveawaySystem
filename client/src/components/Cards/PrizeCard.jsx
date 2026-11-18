@@ -1,17 +1,15 @@
 import { Link } from 'react-router-dom';
-import { Users, Clock, ArrowRight, Trophy, Coins } from 'lucide-react';
-import { formatCurrencyAmount } from '../../config/currencies';
+import { Users, Clock, ArrowRight } from 'lucide-react';
 import styles from './PrizeCard.module.css';
 
 /**
- * PrizeCard Component - Modern Luxury Edition
- * Displays:
- * - Top Row: Colored Rank Badge + Prominent Entry Fee Pill (VE/SVE/TOKEN)
- * - Centered Product Image with Radial Ambient Glow & Retail Market Value
- * - Title & Subtitle with crisp typographic contrast
- * - Gamified Pool Participation Progress Bar
- * - Metadata row: Verified Winner Count + Synchronized Countdown Status
- * - Vibrant Gradient "Join Draw →" CTA with micro-interaction
+ * PrizeCard Component - Strictly Aligned with Ref_02.jpeg
+ * Features:
+ * - Top Left Badge: 1st Prize / 2nd Prize / 3rd Prize / Lucky Draw
+ * - High-Impact Floating 3D Prize Visual with Neon Radial Aura
+ * - Clean Title & Subtitle hierarchy
+ * - 2-Item Meta Row: Participants & Time Left
+ * - Vibrant Gradient "Join Now →" CTA Button
  */
 export function PrizeCard({ giveaway }) {
   if (!giveaway) return null;
@@ -21,24 +19,16 @@ export function PrizeCard({ giveaway }) {
     title,
     subtitle,
     prize = {},
-    entry = { currency: 'VE', amount: 250 },
-    winnerCount = 1,
-    displayParticipants,
-    displayTimeLeft
+    displayParticipants = '2.3K+ Participants',
+    displayTimeLeft = '12d: 08h: 46m left'
   } = giveaway;
 
-  // Visual configuration mapping
+  // Visual configuration mapping matching Ref_02.jpeg
   const badgeText = prize.badge || 'Featured';
   const badgeColor = prize.badgeColor || '#F59E0B';
-  const btnGradient = prize.btnGradient || 'linear-gradient(135deg, #10B981, #059669)';
-  const accentColor = prize.accentColor || '#10B981';
-
-  // Fallback image handling
+  const btnGradient = prize.btnGradient || 'linear-gradient(135deg, #8B5CF6, #6D28D9)';
+  const accentColor = prize.accentColor || '#8B5CF6';
   const imageSrc = prize.localImage || prize.image;
-
-  // Pool fill progress calculation (capped between 40% and 92% for realistic visual excitement)
-  const count = Number(giveaway.participantsCount) || 1200;
-  const progressPercent = Math.min(94, Math.max(38, Math.round((count / 3000) * 100)));
 
   return (
     <div
@@ -48,7 +38,7 @@ export function PrizeCard({ giveaway }) {
         '--btn-gradient': btnGradient
       }}
     >
-      {/* Top Bar: Rank Badge + Entry Fee Chip */}
+      {/* Top Left Prize Position Badge (Ref_02.jpeg) */}
       <div className={styles.topBar}>
         <span
           className={styles.rankBadge}
@@ -56,14 +46,9 @@ export function PrizeCard({ giveaway }) {
         >
           {badgeText}
         </span>
-
-        <span className={styles.feeChip}>
-          <Coins size={12} className={styles.feeIcon} />
-          <span>{formatCurrencyAmount(entry.amount, entry.currency)}</span>
-        </span>
       </div>
 
-      {/* Product Image with Ambient Glow & Retail Value Badge */}
+      {/* 3D Prize Image with Luminous Radial Aura */}
       <div className={styles.imageArea}>
         <div
           className={styles.ambientGlow}
@@ -81,59 +66,33 @@ export function PrizeCard({ giveaway }) {
             }
           }}
         />
-        {prize.retailValue && (
-          <span className={styles.retailBadge} title="Estimated Retail Market Value">
-            Est. {prize.retailValue}
-          </span>
-        )}
       </div>
 
-      {/* Card Details */}
+      {/* Card Body */}
       <div className={styles.body}>
         <h3 className={styles.title}>{title}</h3>
         <p className={styles.subtitle}>{subtitle || giveaway.description}</p>
 
-        {/* Gamified Pool Progress Bar */}
-        <div className={styles.progressWrap}>
-          <div className={styles.progressHeader}>
-            <span className={styles.progressLabel}>Pool Momentum</span>
-            <span className={styles.progressVal}>{progressPercent}% Filled</span>
-          </div>
-          <div className={styles.progressBarBg}>
-            <div
-              className={styles.progressBarFill}
-              style={{
-                width: `${progressPercent}%`,
-                background: btnGradient
-              }}
-            />
-          </div>
-        </div>
-
-        {/* Metadata Strip */}
+        {/* 2-Item Meta Row (Ref_02.jpeg) */}
         <div className={styles.metaRow}>
           <div className={styles.metaItem}>
-            <Trophy size={13} className={styles.metaIconGold} />
-            <span>{winnerCount} {winnerCount === 1 ? 'Winner' : 'Winners'}</span>
+            <Users size={14} className={styles.metaIcon} />
+            <span>{displayParticipants}</span>
           </div>
           <div className={styles.metaItem}>
-            <Users size={13} className={styles.metaIconCyan} />
-            <span>{displayParticipants || `${Number(giveaway.participantsCount).toLocaleString()}`}</span>
-          </div>
-          <div className={styles.metaItem}>
-            <Clock size={13} className={styles.metaIconClock} />
-            <span>{displayTimeLeft || 'Active'}</span>
+            <Clock size={14} className={styles.metaIcon} />
+            <span>{displayTimeLeft}</span>
           </div>
         </div>
 
-        {/* Join Now Button */}
+        {/* Full-Width Gradient "Join Now →" CTA (Ref_02.jpeg) */}
         <Link
           to={`/giveaway/${slug}`}
           className={styles.joinButton}
           style={{ background: btnGradient }}
           aria-label={`Join ${title} giveaway`}
         >
-          <span>Join Draw</span>
+          <span>Join Now</span>
           <ArrowRight size={15} className={styles.arrowIcon} />
         </Link>
       </div>

@@ -1,54 +1,60 @@
-import { Rocket, User, Coins, Ticket, Trophy, FileText, ArrowRight } from 'lucide-react';
+import { Rocket, User, Zap, Gift, Trophy, FileText, ArrowRight } from 'lucide-react';
 import styles from './ParticipateTimeline.module.css';
 
 /**
- * ParticipateTimeline Component - Modern Luxury Edition
- * Sleek gamified timeline with glowing step indicators, connecting progress beam,
- * and direct smooth scroll to official rules.
+ * ParticipateTimeline Component - Strictly Aligned with Ref_02.jpeg
+ * Features:
+ * - Header: "🚀 How to Participate?" + "Follow these simple steps to join and win."
+ * - 4 Connected Steps:
+ *   1. Sign Up / Login (Purple)
+ *   2. Complete Tasks (Blue)
+ *   3. Get Entries (Green)
+ *   4. Win Rewards (Orange)
+ * - Bottom Action: "📄 View Rules & Guidelines →" (opens clean modal)
  */
-export function ParticipateTimeline() {
+export function ParticipateTimeline({ onOpenRules }) {
   const steps = [
     {
-      num: '01',
+      num: 1,
       icon: User,
-      colorClass: styles.emeraldStep,
-      title: '1. Create / Verify Account',
-      desc: 'Sign up or login to activate your VELOOP rewards wallet.'
-    },
-    {
-      num: '02',
-      icon: Coins,
-      colorClass: styles.cyanStep,
-      title: '2. Select Drop & Entry Fee',
-      desc: 'Pick your desired prize pool and pay entry in VE, SVE, or Tokens.'
-    },
-    {
-      num: '03',
-      icon: Ticket,
       colorClass: styles.purpleStep,
-      title: '3. Receive Ledger Ticket',
-      desc: 'Your entry ticket is cryptographically registered on the platform ledger.'
+      title: '1. Sign Up / Login',
+      desc: 'Create your account or login to get started.'
     },
     {
-      num: '04',
+      num: 2,
+      icon: Zap,
+      colorClass: styles.blueStep,
+      title: '2. Complete Tasks',
+      desc: 'Complete simple tasks and earn more entries.'
+    },
+    {
+      num: 3,
+      icon: Gift,
+      colorClass: styles.greenStep,
+      title: '3. Get Entries',
+      desc: 'Each task gives you entries for the giveaway.'
+    },
+    {
+      num: 4,
       icon: Trophy,
-      colorClass: styles.goldStep,
-      title: '4. Win & Claim Prize',
-      desc: 'Winners are randomly finalized on draw end with 7 days to claim.'
+      colorClass: styles.orangeStep,
+      title: '4. Win Rewards',
+      desc: 'Winners are selected randomly after the giveaway ends.'
     }
   ];
 
   return (
     <aside className={styles.container} aria-label="How to participate instructions">
-      {/* Header */}
+      {/* Header matching Ref_02.jpeg */}
       <div className={styles.header}>
         <div className={styles.titleRow}>
           <div className={styles.rocketIconWrap}>
             <Rocket size={18} className={styles.rocketIcon} />
           </div>
           <div>
-            <h2 className={styles.title}>How to Join?</h2>
-            <p className={styles.subtitle}>4 transparent steps to win rewards</p>
+            <h2 className={styles.title}>How to Participate?</h2>
+            <p className={styles.subtitle}>Follow these simple steps to join and win.</p>
           </div>
         </div>
       </div>
@@ -66,15 +72,12 @@ export function ParticipateTimeline() {
                 <div className={`${styles.iconCircle} ${step.colorClass}`}>
                   <Icon size={16} />
                 </div>
-                {!isLast && <div className={styles.connectorBeam} />}
+                {!isLast && <div className={styles.connectorLine} />}
               </div>
 
               {/* Text Description */}
               <div className={styles.contentCol}>
-                <div className={styles.stepHeader}>
-                  <h3 className={styles.stepTitle}>{step.title}</h3>
-                  <span className={styles.stepNumPill}>{step.num}</span>
-                </div>
+                <h3 className={styles.stepTitle}>{step.title}</h3>
                 <p className={styles.stepDesc}>{step.desc}</p>
               </div>
             </div>
@@ -82,20 +85,17 @@ export function ParticipateTimeline() {
         })}
       </div>
 
-      {/* View Rules Button */}
-      <a
-        href="#rules"
+      {/* Rules & Guidelines Trigger Button (Ref_02.jpeg) */}
+      <button
+        type="button"
         className={styles.rulesButton}
-        onClick={(e) => {
-          e.preventDefault();
-          const rulesEl = document.getElementById('rules-modal-trigger') || document.getElementById('rules') || document.getElementById('rules-section');
-          if (rulesEl) rulesEl.scrollIntoView({ behavior: 'smooth' });
-        }}
+        onClick={onOpenRules}
+        aria-label="View official giveaway rules and guidelines"
       >
-        <FileText size={15} />
-        <span>View Official Rules</span>
-        <ArrowRight size={14} className={styles.arrowIcon} />
-      </a>
+        <FileText size={15} className={styles.rulesIcon} />
+        <span>View Rules & Guidelines</span>
+        <ArrowRight size={14} className={styles.rulesArrow} />
+      </button>
     </aside>
   );
 }

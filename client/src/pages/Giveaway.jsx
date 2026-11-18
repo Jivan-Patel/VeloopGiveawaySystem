@@ -5,17 +5,15 @@ import { useAuth } from '../hooks/useAuth';
 import { USER_STATE } from '../config/giveawayStatus';
 import SectionHeader from '../components/SectionHeader/SectionHeader';
 import GiveawayStats from '../components/Stats/GiveawayStats';
+import WinnerAnnouncementBar from '../components/Winners/WinnerAnnouncementBar';
 import PrizeCard from '../components/Cards/PrizeCard';
 import ParticipateTimeline from '../components/ParticipateTimeline/ParticipateTimeline';
-import WinnersTabs from '../components/Winners/WinnersTabs';
-import GiveawayRules from '../components/Rules/GiveawayRules';
-import FAQAccordion from '../components/FAQ/FAQAccordion';
 import TrustBadges from '../components/Trust/TrustBadges';
-import ThemedLoader from '../components/Loader/ThemedLoader';
-import PersonalStatusPanel from '../components/PersonalPanel/PersonalStatusPanel';
-import ControlledReveal from '../components/ControlledReveal/ControlledReveal';
-import NextGiveawayPreview from '../components/Preview/NextGiveawayPreview';
+import RulesModal from '../components/Rules/RulesModal';
+import PastWinnersModal from '../components/Winners/PastWinnersModal';
 import PrizeClaimModal from '../components/Claims/PrizeClaimModal';
+import PersonalStatusPanel from '../components/PersonalPanel/PersonalStatusPanel';
+import ThemedLoader from '../components/Loader/ThemedLoader';
 import styles from './Giveaway.module.css';
 
 const CATEGORIES = [
@@ -26,14 +24,20 @@ const CATEGORIES = [
 ];
 
 /**
- * Giveaway Page Component - Strictly matching Ref_02.jpeg (Document last page)
- * Transforms the giveaway view into a unified, self-contained "Giveaway Section":
- * 1. Section Header (Flanked by 3D gift box podiums with confetti, gradient title)
- * 2. Stats Strip (Total Giveaways, Total Participants, Prizes Won, Ends In)
- * 3. Main Area: 4 Featured Prize Cards + How to Participate Timeline sidebar
- * 4. Official Giveaway Rules & Guidelines (7 Topics)
- * 5. Frequently Asked Questions Accordion (7 Questions)
- * 6. Trust & Security Strip (4 verified platform guarantees)
+ * Giveaway Page Component - Strictly Aligned with Ref_02.jpeg & PRD Specification
+ * Structure:
+ * 1. Atmospheric Ambient Lighting
+ * 2. Section Header: 3D glowing gift boxes on left & right pedestals, "🎁 EXCLUSIVE GIVEAWAYS", "Giveaway Section", sparkle subtitle
+ * 3. Giveaway Stats: 4 horizontal items in an elevated glassmorphism gaming HUD
+ * 4. Winner Announcement Bar: Sleek 1-line rotating social proof ticker (Section 18)
+ * 5. Main 75% / 25% Split Grid:
+ *    - Left (75%): "⭐ Featured Giveaways" with View All button + 4 vibrant 3D Prize Cards (iPhone, Watch, AirPods, Amazon)
+ *    - Right (25%): "🚀 How to Participate?" 4 connected steps + "📄 View Rules & Guidelines →" trigger
+ * 6. Bottom Trust & Security Strip: 4 horizontal pillars (Fair, Secure, Trusted, Support)
+ * 7. Modals:
+ *    - RulesModal: 7 Rules topics + 7 FAQs in clean dialog (0 main-page text clutter)
+ *    - PastWinnersModal: Verified past winners with masked IDs
+ *    - PrizeClaimModal: Winner claim submission
  */
 export function Giveaway() {
   const {
@@ -47,6 +51,8 @@ export function Giveaway() {
   const { userState, claimPrizeType } = useAuth();
   const [selectedCategory, setSelectedCategory] = useState('ALL');
   const [showAll, setShowAll] = useState(false);
+  const [isRulesModalOpen, setIsRulesModalOpen] = useState(false);
+  const [isPastWinnersModalOpen, setIsPastWinnersModalOpen] = useState(false);
   const [isClaimModalOpen, setIsClaimModalOpen] = useState(false);
 
   if (loading) {
@@ -102,24 +108,25 @@ export function Giveaway() {
       <div className={styles.ambientOrbLeft} aria-hidden="true" />
       <div className={styles.ambientOrbRight} aria-hidden="true" />
 
-      {/* 1. Header with Flanking 3D Podium Gift Boxes */}
+      {/* 1. Header with Flanking 3D Podium Gift Boxes (Ref_02.jpeg) */}
       <SectionHeader />
 
-      {/* 2. Platform Summary Metrics Strip */}
+      {/* 2. Platform Summary Metrics Strip - 4 Horizontal Items (Ref_02.jpeg) */}
       <GiveawayStats stats={stats} />
 
-      {/* 3. Controlled Winner Selection Simulation (Revealing State) */}
-      <ControlledReveal />
+      {/* 3. Sleek Social Proof Winner Announcement Slider (Task Spec Section 18) */}
+      <WinnerAnnouncementBar onOpenHistory={() => setIsPastWinnersModalOpen(true)} />
 
-      {/* 4. Contextual Personal Status Panel (All 5 User States) */}
-      <PersonalStatusPanel onOpenClaimModal={() => setIsClaimModalOpen(true)} />
+      {/* 4. Contextual Winner Notification (Only visible when user state is WINNER) */}
+      {userState === USER_STATE.WINNER && (
+        <div className="mb-4">
+          <PersonalStatusPanel onOpenClaimModal={() => setIsClaimModalOpen(true)} />
+        </div>
+      )}
 
-      {/* 5. Next Giveaway Preview (Contextual for Non-Winners or Early Access) */}
-      {userState === USER_STATE.NON_WINNER && <NextGiveawayPreview />}
-
-      {/* 6. Main Row: Left (Featured Prize Cards Grid) + Right (How to Participate Sidebar) */}
+      {/* 5. Main Content Grid: 75% Left (Featured Cards) + 25% Right (How to Participate) (Ref_02.jpeg) */}
       <div className={`row g-3 g-lg-4 mb-2 ${styles.mainRow}`}>
-        {/* Left Column: Featured Giveaways */}
+        {/* Left Column: Featured Giveaways (approx 75% width on desktop) */}
         <div className="col-12 col-xl-9">
           <div className={styles.featuredSection}>
             <div className={styles.sectionHeadingRow}>
@@ -188,7 +195,7 @@ export function Giveaway() {
               })}
             </div>
 
-            {/* Prize Cards Grid */}
+            {/* Prize Cards Grid: 4 Cards Side-by-Side (Ref_02.jpeg) */}
             {displayedCards.length > 0 ? (
               <div className={styles.cardsGrid}>
                 {displayedCards.map((gw) => (
@@ -203,25 +210,28 @@ export function Giveaway() {
           </div>
         </div>
 
-        {/* Right Column: How to Participate Sidebar */}
+        {/* Right Column: How to Participate Sidebar (approx 25% width on desktop) (Ref_02.jpeg) */}
         <div className="col-12 col-xl-3">
-          <ParticipateTimeline />
+          <ParticipateTimeline onOpenRules={() => setIsRulesModalOpen(true)} />
         </div>
       </div>
 
-      {/* 4. Verified Winners Showcase (WinnerSlider & Previous Winners Tabs) */}
-      <WinnersTabs livePoolsCount={giveaways.filter((g) => g.status === 'LIVE').length} />
-
-      {/* 5. Official Giveaway Rules & Guidelines (7 Topics) */}
-      <GiveawayRules />
-
-      {/* 5. Frequently Asked Questions Accordion (7 Questions) */}
-      <FAQAccordion />
-
-      {/* 6. Bottom Trust & Security Strip */}
+      {/* 6. Bottom Trust & Security Strip - 4 Horizontal Pillars (Ref_02.jpeg) */}
       <TrustBadges />
 
-      {/* 7. Prize Claim Modal Dialog */}
+      {/* 7. Accessible Rules & FAQ Modal (Eliminates 1,200px of text clutter from main view) */}
+      <RulesModal
+        isOpen={isRulesModalOpen}
+        onClose={() => setIsRulesModalOpen(false)}
+      />
+
+      {/* 8. Verified Past Winners Modal */}
+      <PastWinnersModal
+        isOpen={isPastWinnersModalOpen}
+        onClose={() => setIsPastWinnersModalOpen(false)}
+      />
+
+      {/* 9. Prize Claim Modal Dialog */}
       <PrizeClaimModal
         isOpen={isClaimModalOpen}
         onClose={() => setIsClaimModalOpen(false)}

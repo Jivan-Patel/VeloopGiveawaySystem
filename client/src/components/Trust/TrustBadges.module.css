@@ -1,12 +1,13 @@
 .container {
-  background: linear-gradient(180deg, rgba(18, 24, 21, 0.78) 0%, rgba(11, 15, 13, 0.88) 100%);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(14, 19, 31, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 1.25rem;
-  padding: 1.5rem 1.75rem;
-  margin-top: 2.5rem;
-  box-shadow: 0 12px 36px -6px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  padding: 1.35rem 1.75rem;
+  margin-top: 2rem;
+  margin-bottom: 2.5rem;
+  box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 .grid {
@@ -18,12 +19,7 @@
 .item {
   display: flex;
   align-items: center;
-  gap: 0.9rem;
-  transition: transform 0.25s ease;
-}
-
-.item:hover {
-  transform: translateY(-2px);
+  gap: 1rem;
 }
 
 .iconWrap {
@@ -34,36 +30,35 @@
   height: 44px;
   border-radius: 12px;
   flex-shrink: 0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-  transition: transform 0.25s ease;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
 }
 
-.item:hover .iconWrap {
-  transform: scale(1.08);
+/* 1. Purple (Ref_02) */
+.purpleIcon {
+  background: rgba(139, 92, 246, 0.18);
+  border: 1px solid rgba(167, 139, 250, 0.4);
+  color: #C4B5FD;
 }
 
-.purple {
-  background: rgba(124, 58, 237, 0.16);
-  border: 1px solid rgba(139, 92, 246, 0.35);
-  color: #C084FC;
+/* 2. Blue (Ref_02) */
+.blueIcon {
+  background: rgba(59, 130, 246, 0.18);
+  border: 1px solid rgba(96, 165, 250, 0.4);
+  color: #93C5FD;
 }
 
-.blue {
-  background: rgba(14, 165, 233, 0.16);
-  border: 1px solid rgba(56, 189, 248, 0.35);
-  color: #38BDF8;
+/* 3. Green (Ref_02) */
+.greenIcon {
+  background: rgba(16, 185, 129, 0.18);
+  border: 1px solid rgba(52, 211, 153, 0.4);
+  color: #6EE7B7;
 }
 
-.green {
-  background: rgba(16, 185, 129, 0.16);
-  border: 1px solid rgba(16, 185, 129, 0.35);
-  color: #34D399;
-}
-
-.orange {
-  background: rgba(245, 158, 11, 0.16);
-  border: 1px solid rgba(251, 191, 36, 0.35);
-  color: #FBBF24;
+/* 4. Orange (Ref_02) */
+.orangeIcon {
+  background: rgba(249, 115, 22, 0.18);
+  border: 1px solid rgba(251, 146, 60, 0.4);
+  color: #FDBA74;
 }
 
 .textWrap {
@@ -76,14 +71,14 @@
   font-weight: 700;
   color: #FFFFFF;
   margin: 0 0 0.2rem;
-  line-height: 1.25;
+  letter-spacing: -0.01em;
 }
 
 .desc {
-  font-size: 0.76rem;
+  font-size: 0.78rem;
   color: #94A3B8;
   margin: 0;
-  line-height: 1.4;
+  line-height: 1.45;
 }
 
 @media (max-width: 992px) {
@@ -93,33 +88,26 @@
   }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 640px) {
   .container {
-    padding: 1.15rem 0.85rem;
+    padding: 1.15rem 1rem;
     border-radius: 1rem;
-    margin-top: 1.75rem;
   }
-  
   .grid {
     grid-template-columns: 1fr;
     gap: 1rem;
   }
-
   .item {
-    gap: 0.75rem;
+    gap: 0.85rem;
   }
-
   .iconWrap {
     width: 38px;
     height: 38px;
-    border-radius: 10px;
   }
-
   .title {
     font-size: 0.88rem;
   }
-
   .desc {
-    font-size: 0.74rem;
+    font-size: 0.75rem;
   }
 }

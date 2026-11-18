@@ -1,23 +1,18 @@
 .container {
   display: flex;
   flex-direction: column;
-  background: linear-gradient(180deg, rgba(18, 23, 20, 0.78) 0%, rgba(12, 16, 14, 0.88) 100%);
+  background: rgba(14, 19, 31, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 1.5rem;
+  border-radius: 1.25rem;
   padding: 1.5rem 1.35rem;
+  box-shadow: 0 12px 36px -6px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.06);
   height: 100%;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  transition: border-color 0.3s ease;
-}
-
-.container:hover {
-  border-color: rgba(16, 185, 129, 0.2);
 }
 
 .header {
-  margin-bottom: 1.35rem;
+  margin-bottom: 1.5rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
@@ -25,46 +20,51 @@
 .titleRow {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.85rem;
 }
 
 .rocketIconWrap {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
-  background: rgba(16, 185, 129, 0.15);
-  border: 1px solid rgba(16, 185, 129, 0.35);
-  color: #34D399;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(236, 72, 153, 0.15);
+  border: 1px solid rgba(236, 72, 153, 0.35);
   flex-shrink: 0;
-  box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
+}
+
+.rocketIcon {
+  color: #EC4899;
 }
 
 .title {
   font-size: 1.15rem;
   font-weight: 800;
   color: #FFFFFF;
-  margin: 0;
+  margin: 0 0 0.2rem;
   letter-spacing: -0.01em;
 }
 
 .subtitle {
-  font-size: 0.76rem;
+  font-size: 0.8rem;
   color: #94A3B8;
-  margin: 0.15rem 0 0;
+  margin: 0;
+  font-weight: 500;
 }
 
 .timeline {
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  gap: 0.25rem;
+  margin-bottom: 1.5rem;
+  flex: 1 1 auto;
 }
 
 .stepItem {
   display: flex;
-  gap: 0.85rem;
+  gap: 1rem;
   position: relative;
 }
 
@@ -72,6 +72,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 36px;
   flex-shrink: 0;
 }
 
@@ -79,166 +80,111 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
   z-index: 2;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   transition: transform 0.2s ease;
 }
 
 .stepItem:hover .iconCircle {
-  transform: scale(1.1);
+  transform: scale(1.08);
 }
 
-.emeraldStep {
-  background: linear-gradient(135deg, #10B981, #059669);
-  color: #FFFFFF;
-  box-shadow: 0 0 12px rgba(16, 185, 129, 0.4);
-}
-
-.cyanStep {
-  background: linear-gradient(135deg, #0EA5E9, #0284C7);
-  color: #FFFFFF;
-  box-shadow: 0 0 12px rgba(14, 165, 233, 0.4);
-}
-
+/* 1. Purple Step */
 .purpleStep {
-  background: linear-gradient(135deg, #8B5CF6, #7C3AED);
-  color: #FFFFFF;
-  box-shadow: 0 0 12px rgba(139, 92, 246, 0.4);
+  background: rgba(139, 92, 246, 0.2);
+  border: 1px solid rgba(167, 139, 250, 0.5);
+  color: #C4B5FD;
 }
 
-.goldStep {
-  background: linear-gradient(135deg, #F59E0B, #D97706);
-  color: #FFFFFF;
-  box-shadow: 0 0 12px rgba(245, 158, 11, 0.4);
+/* 2. Blue Step */
+.blueStep {
+  background: rgba(59, 130, 246, 0.2);
+  border: 1px solid rgba(96, 165, 250, 0.5);
+  color: #93C5FD;
 }
 
-.connectorBeam {
+/* 3. Green Step */
+.greenStep {
+  background: rgba(16, 185, 129, 0.2);
+  border: 1px solid rgba(52, 211, 153, 0.5);
+  color: #6EE7B7;
+}
+
+/* 4. Orange Step */
+.orangeStep {
+  background: rgba(249, 115, 22, 0.2);
+  border: 1px solid rgba(251, 146, 60, 0.5);
+  color: #FDBA74;
+}
+
+.connectorLine {
   width: 2px;
-  flex-grow: 1;
-  min-height: 26px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.05) 100%);
+  flex: 1 1 auto;
+  min-height: 28px;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.2) 0px,
+    rgba(255, 255, 255, 0.2) 4px,
+    transparent 4px,
+    transparent 8px
+  );
   margin: 4px 0;
 }
 
 .contentCol {
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 1.15rem;
-  flex-grow: 1;
-}
-
-.stepHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.2rem;
+  padding-bottom: 1.25rem;
 }
 
 .stepTitle {
-  font-size: 0.88rem;
+  font-size: 0.92rem;
   font-weight: 700;
-  color: #FFFFFF;
-  margin: 0;
-}
-
-.stepNumPill {
-  font-size: 0.68rem;
-  font-weight: 800;
-  color: #64748B;
-  background: rgba(255, 255, 255, 0.04);
-  padding: 0.1rem 0.4rem;
-  border-radius: 4px;
+  color: #F8FAFC;
+  margin: 0 0 0.25rem;
 }
 
 .stepDesc {
-  font-size: 0.76rem;
+  font-size: 0.8rem;
   color: #94A3B8;
   margin: 0;
-  line-height: 1.4;
+  line-height: 1.45;
 }
 
 .rulesButton {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.45rem;
+  gap: 0.5rem;
   width: 100%;
-  padding: 0.65rem 1rem;
-  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.85rem;
   background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #CBD5E1;
-  font-size: 0.82rem;
+  border: 1px solid rgba(139, 92, 246, 0.35);
+  color: #C4B5FD;
+  font-size: 0.85rem;
   font-weight: 700;
-  text-decoration: none;
   cursor: pointer;
   transition: all 0.2s ease;
   margin-top: auto;
 }
 
 .rulesButton:hover {
-  background: rgba(16, 185, 129, 0.12);
-  border-color: rgba(16, 185, 129, 0.4);
-  color: #34D399;
-  transform: translateY(-2px);
+  background: rgba(139, 92, 246, 0.16);
+  border-color: rgba(167, 139, 250, 0.6);
+  color: #FFFFFF;
+  transform: translateY(-1px);
 }
 
-.arrowIcon {
+.rulesIcon {
+  color: #A78BFA;
+}
+
+.rulesArrow {
   transition: transform 0.2s ease;
 }
 
-.rulesButton:hover .arrowIcon {
+.rulesButton:hover .rulesArrow {
   transform: translateX(3px);
-}
-
-@media (min-width: 768px) and (max-width: 1199px) {
-  .timeline {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.25rem;
-    margin-bottom: 1.25rem;
-  }
-  .connectorBeam {
-    display: none;
-  }
-}
-
-@media (max-width: 576px) {
-  .container {
-    padding: 1.25rem 1rem;
-    border-radius: 1.25rem;
-  }
-
-  .stepItem {
-    gap: 0.75rem;
-  }
-
-  .iconCircle {
-    width: 30px;
-    height: 30px;
-  }
-
-  .connectorBeam {
-    min-height: 20px;
-  }
-
-  .contentCol {
-    padding-bottom: 0.85rem;
-  }
-
-  .stepTitle {
-    font-size: 0.84rem;
-  }
-
-  .stepDesc {
-    font-size: 0.74rem;
-  }
-
-  .rulesButton {
-    padding: 0.6rem 0.85rem;
-    font-size: 0.78rem;
-  }
 }

@@ -1,39 +1,38 @@
-import { ShieldCheck, Lock, Users, Headphones } from 'lucide-react';
+import { ShieldCheck, Lock, CheckCircle2, Headphones } from 'lucide-react';
 import styles from './TrustBadges.module.css';
 
 /**
- * TrustBadges Component - Strictly matching Ref_02.jpeg (Document last page)
- * 4 bottom security and credibility badges:
- * 1. 100% Fair & Transparent
- * 2. Secure & Safe
- * 3. Trusted by 10K+ Users
- * 4. 24/7 Customer Support
+ * TrustBadges Component - Strictly matching Ref_02.jpeg bottom section:
+ * 1. 100% Fair & Transparent (Purple)
+ * 2. Secure & Safe (Blue)
+ * 3. Trusted by 10K+ Users (Green)
+ * 4. 24/7 Customer Support (Orange)
  */
 export function TrustBadges() {
   const items = [
     {
       icon: ShieldCheck,
-      colorClass: styles.purple,
-      title: 'Clear & Verifiable Rules',
-      desc: 'Cryptographically randomized draws on an authoritative backend ledger.'
+      colorClass: styles.purpleIcon,
+      title: '100% Fair & Transparent',
+      desc: 'All giveaways are conducted fairly and transparently.'
     },
     {
       icon: Lock,
-      colorClass: styles.blue,
+      colorClass: styles.blueIcon,
       title: 'Secure & Safe',
-      desc: 'Your data, entry state, and token balances are protected with enterprise-grade encryption.'
+      desc: 'Your data and privacy are our top priority.'
     },
     {
-      icon: Users,
-      colorClass: styles.green,
-      title: 'Transparent Community',
-      desc: 'Real participants, verified prize distributions, and zero hidden shipping costs.'
+      icon: CheckCircle2,
+      colorClass: styles.greenIcon,
+      title: 'Trusted by 10K+ Users',
+      desc: 'Join thousands of happy users who trust VELoop Rewards.'
     },
     {
       icon: Headphones,
-      colorClass: styles.orange,
-      title: '24/7 Dedicated Support',
-      desc: 'Prompt assistance for account inquiries, reward tracking, and delivery support.'
+      colorClass: styles.orangeIcon,
+      title: '24/7 Customer Support',
+      desc: "We're here to help you anytime, anywhere."
     }
   ];
 

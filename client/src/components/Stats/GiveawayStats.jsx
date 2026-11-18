@@ -3,12 +3,12 @@ import { Gift, Users, Trophy, Clock } from 'lucide-react';
 import styles from './GiveawayStats.module.css';
 
 /**
- * GiveawayStats Component - Modern Luxury Command Strip
- * 4 Horizontal items in an elevated dark glass strip:
- * 1. Total Giveaways (24 Active with live indicator)
- * 2. Total Participants (8.5K+ Verified Entries)
- * 3. Prizes Won (1.2K+ Rewards Dispatched)
- * 4. Ends In (12d : 08h : 45m Remaining)
+ * GiveawayStats Component - Strictly Aligned with Ref_02.jpeg
+ * 4 Horizontal items in an elevated dark glassmorphism pill HUD:
+ * 1. Total Giveaways -> 24 Active (Purple)
+ * 2. Total Participants -> 8.5K+ Users (Blue)
+ * 3. Prizes Won -> 1.2K+ Rewards (Green)
+ * 4. Ends In -> 12d : 08h : 45m Remaining (Orange)
  */
 export function GiveawayStats({ stats }) {
   // Live ticking countdown for the "Ends In" stat (12d : 08h : 45m)
@@ -29,67 +29,65 @@ export function GiveawayStats({ stats }) {
   const minutes = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
 
   const totalGiveaways = stats?.totalGiveaways || 24;
-  const participants = stats?.totalParticipantsLabel || '8.5K+';
-  const prizesWon = stats?.prizesWonLabel || '1.2K+';
+  const participants = stats?.totalParticipants ? `${(stats.totalParticipants / 1000).toFixed(1)}K+` : '8.5K+';
+  const prizesWon = stats?.prizesWon ? `${(stats.prizesWon / 1000).toFixed(1)}K+` : '1.2K+';
 
   return (
     <div className={styles.statsStrip} role="region" aria-label="Giveaway summary statistics">
-      {/* 1. Total Giveaways */}
+      {/* 1. Total Giveaways (Purple) */}
       <div className={styles.statCard}>
-        <div className={`${styles.iconContainer} ${styles.emeraldIcon}`}>
+        <div className={`${styles.iconContainer} ${styles.purpleIcon}`}>
           <Gift size={20} />
         </div>
         <div className={styles.statText}>
-          <div className={styles.statLabel}>Active Pools</div>
+          <div className={styles.statLabel}>Total Giveaways</div>
           <div className={styles.statValue}>
-            <span>{totalGiveaways}</span>
-            <span className={styles.statusPillActive}>
-              <span className={styles.pulseDot} />
-              <span>Live</span>
-            </span>
+            <span className={styles.primaryNum}>{totalGiveaways}</span>
+            <span className={styles.purpleTag}>Active</span>
           </div>
         </div>
       </div>
 
-      {/* 2. Total Participants */}
+      {/* 2. Total Participants (Blue) */}
       <div className={styles.statCard}>
-        <div className={`${styles.iconContainer} ${styles.cyanIcon}`}>
+        <div className={`${styles.iconContainer} ${styles.blueIcon}`}>
           <Users size={20} />
         </div>
         <div className={styles.statText}>
           <div className={styles.statLabel}>Total Participants</div>
           <div className={styles.statValue}>
-            <span>{participants}</span>
-            <span className={styles.subLabel}>Entries</span>
+            <span className={styles.primaryNum}>{participants}</span>
+            <span className={styles.blueTag}>Users</span>
           </div>
         </div>
       </div>
 
-      {/* 3. Prizes Won */}
+      {/* 3. Prizes Won (Green) */}
       <div className={styles.statCard}>
-        <div className={`${styles.iconContainer} ${styles.goldIcon}`}>
+        <div className={`${styles.iconContainer} ${styles.greenIcon}`}>
           <Trophy size={20} />
         </div>
         <div className={styles.statText}>
           <div className={styles.statLabel}>Prizes Won</div>
           <div className={styles.statValue}>
-            <span>{prizesWon}</span>
-            <span className={styles.subLabel}>Rewarded</span>
+            <span className={styles.primaryNum}>{prizesWon}</span>
+            <span className={styles.greenTag}>Rewards</span>
           </div>
         </div>
       </div>
 
-      {/* 4. Ends In Live Timer */}
+      {/* 4. Ends In (Orange) */}
       <div className={styles.statCard}>
-        <div className={`${styles.iconContainer} ${styles.amberIcon}`}>
+        <div className={`${styles.iconContainer} ${styles.orangeIcon}`}>
           <Clock size={20} />
         </div>
         <div className={styles.statText}>
-          <div className={styles.statLabel}>Pool Draw In</div>
+          <div className={styles.statLabel}>Ends In</div>
           <div className={styles.statValue}>
             <span className={styles.timerDigits}>
               {days}d : {hours}h : {minutes}m
             </span>
+            <span className={styles.orangeTag}>Remaining</span>
           </div>
         </div>
       </div>
